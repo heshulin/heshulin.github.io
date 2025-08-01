@@ -46,39 +46,28 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 
 <h2 id="Publications"> Publications</h2>  
 
-1. **S. He**, W. Xue, Y. Yang, H. Zhang, J. Pan, X. Zhang. Enhancing Target Speaker Extraction with Hierarchical Speaker Representation Learning. *Neural Networks*, 188, 2025. (**NN 2025**)  
-
-2. **S. He**, J. Liu, H. Li, Y. Yang, F. Chen, X. Zhang. 3S-TSE: Efficient Three-Stage Target Speaker Extraction for Real-Time and Low-Resource Applications. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 421-425. (**ICASSP 2024**)  
-
-3. **S. He**, H. Zhang, W. Rao, K. Zhang, Y. Ju, Y. Yang, X. Zhang. Hierarchical Speaker Representation for Target Speaker Extraction. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10361-10365. (**ICASSP 2024**)  
-
-4. C. Zhao, **S. He**, X. Zhang. SiCRN: Advancing Speech Enhancement Through State-Space Model and In-Place Convolution Techniques. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10506-10510. (**ICASSP 2024**)  
-
-5. K. Zhang, **S. He**, H. Li, X. Zhang *et al.* A Dual-Branch Convolutional Network Architecture Processing on Both Frequency and Time Domain for Single-Channel Speech Enhancement. *APSIPA Transactions on Signal and Information Processing*. 2023, 12(3). (**APSIPA Trans 2023**)  
-
-6. T. Wu, **S. He**, H. Zhang, X. Zhang. ScaleFormer: Transformer-Based Speech Enhancement in the Multi-Scale Time Domain. *Asia-Pacific Signal and Information Processing Association Annual Summit and Conference*. 2023: 2448-2453. (**APSIPA ASC 2023**)  
-
-7. J. Chen, W. Rao, Z. Wang, J. Lin, Y. Ju, **S. He**, Y. Wang, Z. Wu. MC-SpEx: Towards Effective Speaker Extraction with Multi-Scale Interfusion and Conditional Speaker Modulation. *International Conference on the Processing of Speech Signals*. 2023: 4034-4038. (**INTERSPEECH 2023**)  
-
-8. W. Liu, Y. Shi, J. Chen, W. Rao, **S. He**, A. Li, Y. Wang, Z. Wu. GESPER: A Restoration-Enhancement Framework for General Speech Reconstruction. *International Conference on the Processing of Speech Signals*. 2023: 4044-4048. (**INTERSPEECH 2023**)  
-
-9. J. Chen, Y. Shi, W. Liu, W. Rao, **S. He**, A. Li, Y. Wang, Z. Wu, S. Shang, C. Zheng. GESPER: A Unified Framework for General Speech Restoration. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2023: 1-2. (**ICASSP 2023**)  
-
-10. Y. Ju, J. Chen, S. Zhang, **S. He**, W. Rao, W. Zhu, Y. Wang, T. Yu, S. Shang. Tea-PSE 3.0: Tencent-Ethereal-Audio-Lab Personalized Speech Enhancement System for ICASSP 2023 DNS-Challenge. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2023: 1-2. (**ICASSP 2023**)  
-
-11. **S. He**, W. Rao, J. Liu, J. Chen, Y. Ju, X. Zhang, Y. Wang, S. Shang. Speech Enhancement with Intelligent Neural Homomorphic Synthesis. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2023: 1-5. (**ICASSP 2023**)
-
-13. T. Zhang, **S. He**, H. Li, X. Zhang. RAT: RNN-Attention Transformer for Speech Enhancement. *International Symposium on Chinese Spoken Language Processing*. 2022: 463-467. (**ISCSLP 2022**)  
-
-14. **S. He**, H. Li, X. Zhang. SpeakerFilter-Pro: An Improved Target Speaker Extractor Combines the Time Domain and Frequency Domain. *International Symposium on Chinese Spoken Language Processing*. 2022: 473-477. (**ISCSLP 2022**)  
-
-15. J. Pan, S. Nie, H. Zhang, **S. He**, K. Zhang, S. Liang, X. Zhang, J. Tao. Speaker Recognition-Assisted Robust Audio Deepfake Detection. *International Conference on the Processing of Speech Signals*. 2022: 4202-4206. (**INTERSPEECH 2022**)  
-
-16. K. Zhang, S. Liang, S. Nie, **S. He**, J. Pan, X. Zhang, H. Ma, J. Yi. A Robust Deep Audio Splicing Detection Method via Singularity Detection Feature. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2022: 2919-2923. (**ICASSP 2022**)  
-
-17. K. Zhang, **S. He**, H. Li, X. Zhang. DBNet: A Dual-Branch Network Architecture Processing on Spectrum and Waveform for Single-Channel Speech Enhancement. *International Conference on the Processing of Speech Signals*. 2021: 2821-2825. (**INTERSPEECH 2021**)  
-
-18. **S. He**, H. Li, X. Zhang. SpeakerFilter: Deep Learning-Based Target Speaker Extraction Using Anchor Speech. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2020: 376-380. (**ICASSP 2020**)  
+1. **S. He**, W. Xue, Y. Yang, H. Zhang, J. Pan, X. Zhang. Enhancing Target Speaker Extraction with Hierarchical Speaker Representation Learning. *Neural Networks*, **188**, 107388, 2025. (**NN 2025**)  
+2. Z. Li, **S. He**, X. Zhang. Robust Target Speaker Direction of Arrival Estimation. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2025. (**ICASSP 2025**)
+3. **S. He**, J. Liu, H. Li, Y. Yang, F. Chen, X. Zhang. 3S-TSE: Efficient Three-Stage Target Speaker Extraction for Real-Time and Low-Resource Applications. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 421-425. (**ICASSP 2024**)  
+4. **S. He**, H. Zhang, W. Rao, K. Zhang, Y. Ju, Y. Yang, X. Zhang. Hierarchical Speaker Representation for Target Speaker Extraction. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10361-10365. (**ICASSP 2024**)  
+5. C. Zhao, **S. He**, X. Zhang. SiCRN: Advancing Speech Enhancement Through State-Space Model and In-Place Convolution Techniques. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10506-10510. (**ICASSP 2024**)  
+6. P. Shen, **S. He**, X. Zhang. ExARN: Target Speaker Extraction with Attentive Recurrent Networks. *National Conference on Man-Machine Speech Communication*. 2024: 238-249. (**NCMMSC 2024**)  
+7. Z. Ye, Z. Ju, H. Liu, X. Tan, J. Chen, Y. Lu, P. Sun, J. Pan, W. Bian, **S. He**, W. Xue, *et al.* FlashSpeech: Efficient Zero-Shot Speech Synthesis. *Proceedings of the 32nd ACM International Conference on Multimedia*. 2024: 6998-7007. (**ACM MM 2024**)  
+8. F. Zhao, C. Zhang, **S. He**, J. Liu, X. Zhang. Deep Echo Path Modeling for Acoustic Echo Cancellation. *Interspeech*. 2024: 612-616. (**INTERSPEECH 2024**)  
+9. T. Wu, **S. He**, J. Pan, H. Huang, Z. Mo, X. Zhang. Unified Audio-Visual Cues for Target Speaker Extraction. *Interspeech*. 2024: 4343-4347. (**INTERSPEECH 2024**)
+10. T. Wu, **S. He**, H. Zhang, X. Zhang. ScaleFormer: Transformer-Based Speech Enhancement in the Multi-Scale Time Domain. *Asia-Pacific Signal and Information Processing Association Annual Summit and Conference*. 2023: 2448-2453. (**APSIPA ASC 2023**)  
+11. J. Chen, W. Rao, Z. Wang, J. Lin, Y. Ju, **S. He**, Y. Wang, Z. Wu. MC-SpEx: Towards Effective Speaker Extraction with Multi-Scale Interfusion and Conditional Speaker Modulation. *Interspeech*. 2023: 4034-4038. (**INTERSPEECH 2023**)  
+12. W. Liu, Y. Shi, J. Chen, W. Rao, **S. He**, A. Li, Y. Wang, Z. Wu. GESPER: A Restoration-Enhancement Framework for General Speech Reconstruction. *Interspeech*. 2023: 4044-4048. (**INTERSPEECH 2023**)  
+13. J. Chen, Y. Shi, W. Liu, W. Rao, **S. He**, A. Li, Y. Wang, Z. Wu, S. Shang, C. Zheng. GESPER: A Unified Framework for General Speech Restoration. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2023: 1-2. (**ICASSP 2023**)  
+14. Y. Ju, J. Chen, S. Zhang, **S. He**, W. Rao, W. Zhu, Y. Wang, T. Yu, S. Shang. Tea-PSE 3.0: Tencent-Ethereal-Audio-Lab Personalized Speech Enhancement System for ICASSP 2023 DNS-Challenge. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2023: 1-2. (**ICASSP 2023**)  
+15. **S. He**, W. Rao, J. Liu, J. Chen, Y. Ju, X. Zhang, Y. Wang, S. Shang. Speech Enhancement with Intelligent Neural Homomorphic Synthesis. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2023: 1-5. (**ICASSP 2023**)  
+16. K. Zhang, **S. He**, H. Li, X. Zhang. A Dual-Branch Convolutional Network Architecture Processing on Both Frequency and Time Domain for Single-Channel Speech Enhancement. *APSIPA Transactions on Signal and Information Processing*, **12**(3), 2023. (**APSIPA Trans 2023**)
+17. T. Zhang, **S. He**, H. Li, X. Zhang. RAT: RNN-Attention Transformer for Speech Enhancement. *International Symposium on Chinese Spoken Language Processing*. 2022: 463-467. (**ISCSLP 2022**)  
+18. **S. He**, H. Li, X. Zhang. SpeakerFilter-Pro: An Improved Target Speaker Extractor Combines the Time Domain and Frequency Domain. *International Symposium on Chinese Spoken Language Processing*. 2022: 473-477. (**ISCSLP 2022**)  
+19. J. Pan, S. Nie, H. Zhang, **S. He**, K. Zhang, S. Liang, X. Zhang, J. Tao. Speaker Recognition-Assisted Robust Audio Deepfake Detection. *Interspeech*. 2022: 4202-4206. (**INTERSPEECH 2022**)  
+20. K. Zhang, S. Liang, S. Nie, **S. He**, J. Pan, X. Zhang, H. Ma, J. Yi. A Robust Deep Audio Splicing Detection Method via Singularity Detection Feature. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2022: 2919-2923. (**ICASSP 2022**)
+21. K. Zhang, **S. He**, H. Li, X. Zhang. DBNet: A Dual-Branch Network Architecture Processing on Spectrum and Waveform for Single-Channel Speech Enhancement. *Interspeech*. 2021: 2821-2825. (**INTERSPEECH 2021**)
+22. **S. He**, H. Li, X. Zhang. SpeakerFilter: Deep Learning-Based Target Speaker Extraction Using Anchor Speech. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2020: 376-380. (**ICASSP 2020**)  
 
 <h2 id="Projects (PI)"> Projects (PI)</h2>  
 - Personalized speech enhancement for edge devices — Doctoral Innovation Project, Inner Mongolia University (*May 2023 – May 2024*)  
