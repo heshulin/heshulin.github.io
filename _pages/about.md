@@ -72,7 +72,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 22. **S. He**, H. Li, X. Zhang. SpeakerFilter: Deep Learning-Based Target Speaker Extraction Using Anchor Speech. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2020: 376-380. (**ICASSP 2020**)  
 </div>
 
-<h2 id="Projects (PI)"> Projects (PI)</h2>  
+<h2 id="Projects"> Projects</h2>  
 - Personalized speech enhancement for edge devices — Doctoral Innovation Project, Inner Mongolia University (*May 2023 – May 2024*)  
 
 <h2 id="Academic Service"> Academic Service</h2> 
