@@ -11,7 +11,7 @@ redirect_from:
 He received the **B.Eng. degree** in Computer Science from Inner Mongolia University (IMU), Hohhot, China, in **2019** and has been enrolled in a combined master-to-Ph.D. program at IMU since the same year, supervised by [Prof. Xueliang Zhang](https://ccs.imu.edu.cn/info/1020/1849.htm) in the **IMUSpeech** group.  
 From **June 2021 to September 2021**, he was a visiting researcher at the Key Laboratory of Pattern Recognition, Institute of Automation, Chinese Academy of Sciences. From **May 2022 to May 2023**, he joined the **Tencent Rhino-Bird Elite Talent Program** as a joint Ph.D. trainee and received its **Excellent Student Award**. From **October 2023 to April 2024**, he was a visiting Ph.D. student in the Department of Electronic and Computer Engineering, Hong Kong University of Science and Technology. **He is also a recipient of the inaugural CAST Young Talent Support Program *(Doctoral Student Track)*.**   
 
-His research focuses on **target speaker extraction, speech enhancement, and deep learning for speech and audio**. His work has appeared in leading speech and AI venues such as **ICASSP, INTERSPEECH, APSIPA ASC, and Neural Networks**.
+His research focuses on **target speaker extraction, speech enhancement, and deep learning for speech and audio**. His work has been published in top-tier journals and conferences such as **Neural Networks, ICASSP, INTERSPEECH, and APSIPA ASC**.
 
 ---
 
