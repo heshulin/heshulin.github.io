@@ -52,7 +52,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 
 3. **S. He**, H. Zhang, W. Rao, K. Zhang, Y. Ju, Y. Yang, X. Zhang. Hierarchical Speaker Representation for Target Speaker Extraction. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10361-10365. (**ICASSP 2024**)  
 
-4. **S. He**, C. Zhao, X. Zhang. SiCRN: Advancing Speech Enhancement Through State-Space Model and In-Place Convolution Techniques. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10506-10510. (**ICASSP 2024**)  
+4. C. Zhao, **S. He**, X. Zhang. SiCRN: Advancing Speech Enhancement Through State-Space Model and In-Place Convolution Techniques. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 10506-10510. (**ICASSP 2024**)  
 
 5. K. Zhang, **S. He**, H. Li, X. Zhang *et al.* A Dual-Branch Convolutional Network Architecture Processing on Both Frequency and Time Domain for Single-Channel Speech Enhancement. *APSIPA Transactions on Signal and Information Processing*. 2023, 12(3). (**APSIPA Trans 2023**)  
 
