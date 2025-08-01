@@ -6,13 +6,15 @@ redirect_from:
   - /about.html
 ---
 
+<div style="text-align:justify;text-justify:inter-word;" markdown="1">
+**Shulin He** is currently a **Postdoctoral Researcher** with the [SUSTech Audio Intelligence Lab](https://sustechailab.github.io/) (SAIL), Department of Computer Science and Engineering, **Southern University of Science and Technology (SUSTech)**, Shenzhen, China, working with [Dr. Zhongqiu Wang](https://zqwang7.github.io/).
 
-**Shulin He** is currently a **Postdoctoral Researcher** with the [SUSTech Audio Intelligence Lab](https://sustechailab.github.io/) (SAIL), Department of Computer Science and Engineering, **Southern University of Science and Technology (SUSTech)**, Shenzhen, China, working with [Dr. Zhongqiu Wang](https://zqwang7.github.io/).  
 He received the **B.Eng. degree** in Computer Science from Inner Mongolia University (IMU), Hohhot, China, in **2019** and has been enrolled in a combined master-to-Ph.D. program at IMU since the same year, supervised by [Prof. Xueliang Zhang](https://ccs.imu.edu.cn/info/1020/1849.htm) in the **IMUSpeech** group.  
+
 From **June 2021 to September 2021**, he was a visiting researcher at the Key Laboratory of Pattern Recognition, Institute of Automation, Chinese Academy of Sciences. From **May 2022 to May 2023**, he joined the **Tencent Rhino-Bird Elite Talent Program** as a joint Ph.D. trainee and received its **Excellent Student Award**. From **October 2023 to April 2024**, he was a visiting Ph.D. student in the Division of Emerging Interdisciplinary Areas, Hong Kong University of Science and Technology. **He is also a recipient of the inaugural CAST Young Talent Support Program *(Doctoral Student Track)*.**   
 
 His research focuses on **target speaker extraction, speech enhancement, and deep learning for speech and audio**. His work has been published in top-tier journals and conferences such as **Neural Networks, ICASSP, INTERSPEECH, and APSIPA ASC**.
-
+</div>
 ---
 
 <h2 id="Education"> Education</h2>  
@@ -45,7 +47,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 - Deep learning for speech & audio  
 
 <h2 id="Publications"> Publications</h2>  
-
+<div style="text-align:justify;text-justify:inter-word;" markdown="1">
 1. **S. He**, W. Xue, Y. Yang, H. Zhang, J. Pan, X. Zhang. Enhancing Target Speaker Extraction with Hierarchical Speaker Representation Learning. *Neural Networks*, **188**, 107388, 2025. (**NN 2025**)  
 2. Z. Li, **S. He**, X. Zhang. Robust Target Speaker Direction of Arrival Estimation. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2025. (**ICASSP 2025**)
 3. **S. He**, J. Liu, H. Li, Y. Yang, F. Chen, X. Zhang. 3S-TSE: Efficient Three-Stage Target Speaker Extraction for Real-Time and Low-Resource Applications. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 421-425. (**ICASSP 2024**)  
@@ -68,6 +70,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 20. K. Zhang, S. Liang, S. Nie, **S. He**, J. Pan, X. Zhang, H. Ma, J. Yi. A Robust Deep Audio Splicing Detection Method via Singularity Detection Feature. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2022: 2919-2923. (**ICASSP 2022**)
 21. K. Zhang, **S. He**, H. Li, X. Zhang. DBNet: A Dual-Branch Network Architecture Processing on Spectrum and Waveform for Single-Channel Speech Enhancement. *Interspeech*. 2021: 2821-2825. (**INTERSPEECH 2021**)
 22. **S. He**, H. Li, X. Zhang. SpeakerFilter: Deep Learning-Based Target Speaker Extraction Using Anchor Speech. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2020: 376-380. (**ICASSP 2020**)  
+</div>
 
 <h2 id="Projects (PI)"> Projects (PI)</h2>  
 - Personalized speech enhancement for edge devices — Doctoral Innovation Project, Inner Mongolia University (*May 2023 – May 2024*)  
