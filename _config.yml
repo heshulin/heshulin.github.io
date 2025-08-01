@@ -27,8 +27,8 @@ author:
   pronouns         : # example: "she/her"
   bio              : "Postdoctoral researcher at Southern University of Science and Technology"
   location         : "SHEN ZHEN,China"
-  employer         : "Southern University of Science and Technology"
-  uri              : https://slhe.github.io
+  employer         : #"Southern University of Science and Technology"
+  uri              : #https://slhe.github.io
   email            : "slhe@sustech.edu.cn"
 
   # Academic websites
