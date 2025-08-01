@@ -84,7 +84,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 - Personalized speech enhancement for edge devices — Doctoral Innovation Project, Inner Mongolia University (*May 2023 – May 2024*)  
 
 <h2 id="Academic Service"> Academic Service</h2> 
-- Reviewer: *ICASSP 2024*, *ICASSP 2025*  
+- Reviewer: *ICASSP*, *INTERSPEECH*, *ASRU*, *WASPAA*  
 
 <h2 id="Industrial Transfer"> Industrial Transfer</h2> 
 - Target speaker extraction algorithm deployed in **Tencent Meeting (iOS)** (2023)  
@@ -96,7 +96,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 - *ICASSP 2023* DNS-Challenge — 1st place (both tracks)  
 - *ICASSP 2023* SSI-Challenge — 1st place (both tracks)  
 - Excellent Student Award, Tencent *Rhino-Bird* Program (2023)  
-- CAST Young Talent Support Program (2025)  
+- CAST Young Talent Support Program (Doctoral Student Track) (2025)  
 
 ---
 
