@@ -84,11 +84,12 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 <h2 id="Awards & Services"> Awards & Services</h2>
 - Graduate Scholarship, IMU (2020, 2021, 2022)  
 - National Scholarship (2020)  
-- *INTERSPEECH 2021* DNS-Challenge — 5th & 8th place  
+- *INTERSPEECH 2021* DNS-Challenge — 5th & 8th place   
 - *ICASSP 2023* DNS-Challenge — 1st place (both tracks)  
 - *ICASSP 2023* SSI-Challenge — 1st place (both tracks)  
 - Excellent Student Award, Tencent *Rhino-Bird* Program (2023)  
 - CAST Young Talent Support Program (Doctoral Student Track) (2025)  
+- Second Prize, Natural Science Award of the Inner Mongolia Autonomous Region (2025)  
 
 ---
 
