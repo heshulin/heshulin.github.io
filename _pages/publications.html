@@ -11,26 +11,11 @@ author_profile: true
 
 {% include base_path %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
+{% assign pubs_data = site.data.scholar_publications %}
+{% if pubs_data and pubs_data.publications and pubs_data.publications.size > 0 %}
+  {% include scholar-publications-list.html %}
 {% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
+  <p>Publications are syncing from Google Scholar. Please check back soon.</p>
 {% endif %}
-
 
 

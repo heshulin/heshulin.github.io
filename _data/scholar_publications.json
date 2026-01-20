@@ -1,0 +1,251 @@
+{
+  "source": "https://scholar.google.com/citations?user=IweWDgYAAAAJ&hl=en",
+  "last_updated": "2026-01-20",
+  "publications": [
+    {
+      "title": "MC-LExt: Multi-Channel Target Speaker Extraction with Onset-Prompted Speaker Conditioning Mechanism",
+      "authors": "T Ling, S He, P Shen, ZQ Wang",
+      "venue": "arXiv preprint arXiv:2510.15437 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:qxL8FJ1GzNcC"
+    },
+    {
+      "title": "VM-UNSSOR: Unsupervised Neural Speech Separation Enhanced by Higher-SNR Virtual Microphone Arrays",
+      "authors": "S He, ZQ Wang",
+      "venue": "arXiv preprint arXiv:2510.08914 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:M3ejUd6NZC8C"
+    },
+    {
+      "title": "Neural Forward Filtering for Speaker-Image Separation",
+      "authors": "J Sun, S He, R Pang, ZQ Wang",
+      "venue": "arXiv preprint arXiv:2510.05757 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:4TOpqqG69KYC"
+    },
+    {
+      "title": "Advances in speech separation: Techniques, challenges, and future trends",
+      "authors": "K Li, G Chen, W Sang, Y Luo, Z Chen, S Wang, S He, ZQ Wang, A Li, ...",
+      "venue": "arXiv preprint arXiv:2508.10830 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:YOwf2qJgpHMC"
+    },
+    {
+      "title": "Enhancing target speaker extraction with Hierarchical Speaker Representation Learning",
+      "authors": "S He, W Xue, Y Yang, H Zhang, J Pan, X Zhang",
+      "venue": "Neural Networks 188, 107388 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:kNdYIx-mwKoC"
+    },
+    {
+      "title": "Room Impulse Response as a Prompt for Acoustic Echo Cancellation",
+      "authors": "F Zhao, S He, X Zhang",
+      "venue": "arXiv preprint arXiv:2505.19480 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:Zph67rFs4hoC"
+    },
+    {
+      "title": "Listen to Extract: Onset-Prompted Target Speaker Extraction",
+      "authors": "P Shen, K Chen, S He, P Chen, S Yuan, H Kong, X Zhang, ZQ Wang",
+      "venue": "arXiv preprint arXiv:2505.05114 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:KlAtU1dfN6UC"
+    },
+    {
+      "title": "Robust Target Speaker Direction of Arrival Estimation",
+      "authors": "Z Li, S He, X Zhang",
+      "venue": "ICASSP 2025-2025 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:MXK_kJrjxJIC"
+    },
+    {
+      "title": "HWB-Net: A Novel High-Performance and Efficient Hybrid Waveform Bandwidth Extension Method",
+      "authors": "X Liu, S He, X Zhang",
+      "venue": "Proc. Interspeech 2025, 4088-4092 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:_kc_bZDykSQC"
+    },
+    {
+      "title": "TF-SkiMNet: Speech Enhancement Based on Inplace Modeling and Skipping Memory in Time-Frequency Domain",
+      "authors": "Z Li, S He, J Bai, X Zhang",
+      "venue": "Proc. Interspeech 2025, 5143-5147 , 2025",
+      "year": 2025,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:ULOm3_A8WrAC"
+    },
+    {
+      "title": "ExARN: Target Speaker Extraction",
+      "authors": "P Shen, S He, X Zhang",
+      "venue": "Man-Machine Speech Communication: 19th National Conference, NCMMSC 2024\u00a0\u2026 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:8k81kl-MbHgC"
+    },
+    {
+      "title": "Flashspeech: Efficient zero-shot speech synthesis",
+      "authors": "Z Ye, Z Ju, H Liu, X Tan, J Chen, Y Lu, P Sun, J Pan, W Bian, S He, W Xue, ...",
+      "venue": "Proceedings of the 32nd ACM International Conference on Multimedia, 6998-7007 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:hqOjcs7Dif8C"
+    },
+    {
+      "title": "ExARN: Target Speaker Extraction with Attentive Recurrent Networks",
+      "authors": "P Shen, S He, X Zhang",
+      "venue": "National Conference on Man-Machine Speech Communication, 238-249 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:3fE2CSJIrl8C"
+    },
+    {
+      "title": "Hierarchical speaker representation for target speaker extraction",
+      "authors": "S He, H Zhang, W Rao, K Zhang, Y Ju, Y Yang, X Zhang",
+      "venue": "ICASSP 2024-2024 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:UebtZRa9Y70C"
+    },
+    {
+      "title": "Sicrn: Advancing speech enhancement through state space model and inplace convolution techniques",
+      "authors": "C Zhao, S He, X Zhang",
+      "venue": "ICASSP 2024-2024 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:Se3iqnhoufwC"
+    },
+    {
+      "title": "3s-tse: Efficient three-stage target speaker extraction for real-time and low-resource applications",
+      "authors": "S He, J Liu, H Li, Y Yang, F Chen, X Zhang",
+      "venue": "ICASSP 2024-2024 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:roLk4NBRz8UC"
+    },
+    {
+      "title": "Deep echo path modeling for acoustic echo cancellation",
+      "authors": "F Zhao, C Zhang, S He, J Liu, X Zhang",
+      "venue": "Interspeech 2024, 612-616 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:5nxA0vEk-isC"
+    },
+    {
+      "title": "Unified audio visual cues for target speaker extraction",
+      "authors": "T Wu, S He, J Pan, H Huang, Z Mo, X Zhang",
+      "venue": "Proc. Interspeech 2024, 4343-4347 , 2024",
+      "year": 2024,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:0EnyYjriUFMC"
+    },
+    {
+      "title": "ScaleFormer: Transformer-based speech enhancement in the multi-scale time domain",
+      "authors": "T Wu, S He, H Zhang, XL Zhang",
+      "venue": "2023 Asia Pacific Signal and Information Processing Association Annual\u00a0\u2026 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:LkGwnXOMwfcC"
+    },
+    {
+      "title": "PDPCRN: Parallel Dual-Path CRN with Bi-directional Inter-Branch Interactions for Multi-Channel Speech Enhancement",
+      "authors": "J Pan, S He, T Wu, H Zhang, X Zhang",
+      "venue": "arXiv preprint arXiv:2309.10379 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:_FxGoFyzp5QC"
+    },
+    {
+      "title": "Hierarchical Modeling of Spatial Cues via Spherical Harmonics for Multi-Channel Speech Enhancement",
+      "authors": "J Pan, S He, H Zhang, X Zhang",
+      "venue": "arXiv preprint arXiv:2309.10393 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:ufrVoPGSRksC"
+    },
+    {
+      "title": "Mc-spex: Towards effective speaker extraction with multi-scale interfusion and conditional speaker modulation",
+      "authors": "J Chen, W Rao, Z Wang, J Lin, Y Ju, S He, Y Wang, Z Wu",
+      "venue": "arXiv preprint arXiv:2306.16250 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:WF5omc3nYNoC"
+    },
+    {
+      "title": "Gesper: A restoration-enhancement framework for general speech reconstruction",
+      "authors": "W Liu, Y Shi, J Chen, W Rao, S He, A Li, Y Wang, Z Wu",
+      "venue": "arXiv preprint arXiv:2306.08454 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:eQOLeE2rZwMC"
+    },
+    {
+      "title": "Gesper: A unified framework for general speech restoration",
+      "authors": "J Chen, Y Shi, W Liu, W Rao, S He, A Li, Y Wang, Z Wu, S Shang, ...",
+      "venue": "ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:W7OEmFMy1HYC"
+    },
+    {
+      "title": "Tea-pse 3.0: Tencent-ethereal-audio-lab personalized speech enhancement system for icassp 2023 dns-challenge",
+      "authors": "Y Ju, J Chen, S Zhang, S He, W Rao, W Zhu, Y Wang, T Yu, S Shang",
+      "venue": "ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:Y0pCki6q_DkC"
+    },
+    {
+      "title": "Speech enhancement with intelligent neural homomorphic synthesis",
+      "authors": "S He, W Rao, J Liu, J Chen, Y Ju, X Zhang, Y Wang, S Shang",
+      "venue": "ICASSP 2023-2023 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:qjMakFHDy7sC"
+    },
+    {
+      "title": "A Dual-branch Convolutional Network Architecture Processing on both Frequency and Time Domain for Single-channel Speech Enhancement",
+      "authors": "K Zhang, S He, H Li, X Zhang",
+      "venue": "APSIPA Transactions on Signal and Information Processing 12 (3) , 2023",
+      "year": 2023,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:YsMSGLbcyi4C"
+    },
+    {
+      "title": "RAT: RNN-Attention Transformer for Speech Enhancement",
+      "authors": "T Zhang, S He, H Li, X Zhang",
+      "venue": "2022 13th International Symposium on Chinese Spoken Language Processing\u00a0\u2026 , 2022",
+      "year": 2022,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:Tyk-4Ss8FVUC"
+    },
+    {
+      "title": "Speakerfilter-pro: an improved target speaker extractor combines the time domain and frequency domain",
+      "authors": "S He, H Li, X Zhang",
+      "venue": "2022 13th International Symposium on Chinese Spoken Language Processing\u00a0\u2026 , 2022",
+      "year": 2022,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:UeHWp8X0CEIC"
+    },
+    {
+      "title": "ExARN: self-attending RNN for target speaker extraction",
+      "authors": "P Shen, S He, X Zhang",
+      "venue": "arXiv preprint arXiv:2212.01106 , 2022",
+      "year": 2022,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:zYLM7Y9cAGgC"
+    },
+    {
+      "title": "Local-global speaker representation for target speaker extraction",
+      "authors": "S He, W Rao, K Zhang, Y Ju, Y Yang, X Zhang, Y Wang, S Shang",
+      "venue": "arXiv preprint arXiv:2210.15849 , 2022",
+      "year": 2022,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:IjCSPb-OGe4C"
+    },
+    {
+      "title": "A robust deep audio splicing detection method via singularity detection feature",
+      "authors": "K Zhang, S Liang, S Nie, S He, J Pan, X Zhang, H Ma, J Yi",
+      "venue": "ICASSP 2022-2022 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2022",
+      "year": 2022,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:9yKSN-GCB0IC"
+    },
+    {
+      "title": "Speaker recognition-assisted robust audio deepfake detection.",
+      "authors": "J Pan, S Nie, H Zhang, S He, K Zhang, S Liang, X Zhang, J Tao",
+      "venue": "Interspeech, 4202-4206 , 2022",
+      "year": 2022,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:d1gkVwhDpl0C"
+    },
+    {
+      "title": "DBNet: A dual-branch network architecture processing on spectrum and waveform for single-channel speech enhancement",
+      "authors": "K Zhang, S He, H Li, X Zhang",
+      "venue": "arXiv preprint arXiv:2105.02436 , 2021",
+      "year": 2021,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:u-x6o8ySG0sC"
+    },
+    {
+      "title": "Speakerfilter: Deep learning-based target speaker extraction using anchor speech",
+      "authors": "S He, H Li, X Zhang",
+      "venue": "ICASSP 2020-2020 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2020",
+      "year": 2020,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:2osOgNQ5qMEC"
+    }
+  ]
+}

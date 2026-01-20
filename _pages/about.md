@@ -48,6 +48,10 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 
 <h2 id="Publications"> Publications</h2>  
 <div style="text-align:justify;text-justify:inter-word;" markdown="1">
+{% assign pubs_data = site.data.scholar_publications %}
+{% if pubs_data and pubs_data.publications and pubs_data.publications.size > 0 %}
+{% include scholar-publications-list.html %}
+{% else %}
 1. **S. He**, W. Xue, Y. Yang, H. Zhang, J. Pan, X. Zhang. Enhancing Target Speaker Extraction with Hierarchical Speaker Representation Learning. *Neural Networks*, **188**, 107388, 2025. (**NN 2025**)  
 2. Z. Li, **S. He**, X. Zhang. Robust Target Speaker Direction of Arrival Estimation. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2025. (**ICASSP 2025**)
 3. **S. He**, J. Liu, H. Li, Y. Yang, F. Chen, X. Zhang. 3S-TSE: Efficient Three-Stage Target Speaker Extraction for Real-Time and Low-Resource Applications. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2024: 421-425. (**ICASSP 2024**)  
@@ -70,6 +74,7 @@ His research focuses on **target speaker extraction, speech enhancement, and dee
 20. K. Zhang, S. Liang, S. Nie, **S. He**, J. Pan, X. Zhang, H. Ma, J. Yi. A Robust Deep Audio Splicing Detection Method via Singularity Detection Feature. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2022: 2919-2923. (**ICASSP 2022**)
 21. K. Zhang, **S. He**, H. Li, X. Zhang. DBNet: A Dual-Branch Network Architecture Processing on Spectrum and Waveform for Single-Channel Speech Enhancement. *Interspeech*. 2021: 2821-2825. (**INTERSPEECH 2021**)
 22. **S. He**, H. Li, X. Zhang. SpeakerFilter: Deep Learning-Based Target Speaker Extraction Using Anchor Speech. *IEEE International Conference on Acoustics, Speech and Signal Processing*. 2020: 376-380. (**ICASSP 2020**)  
+{% endif %}
 </div>
 
 <h2 id="Projects"> Projects</h2>  

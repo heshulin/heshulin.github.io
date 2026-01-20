@@ -1,0 +1,65 @@
+{% assign pubs_data = site.data.scholar_publications %}
+{% assign render = site.data.publications_render %}
+{% if pubs_data and pubs_data.publications and pubs_data.publications.size > 0 %}
+<ol class="pub-list">
+{% for pub in pubs_data.publications %}
+  {% assign authors = pub.authors | escape %}
+  {% if render and render.author_highlight %}
+    {% for token in render.author_highlight %}
+      {% capture replacement %}<strong>{{ token | escape }}</strong>{% endcapture %}
+      {% assign authors = authors | replace: token, replacement %}
+    {% endfor %}
+  {% endif %}
+
+  {% assign year_str = "" %}
+  {% if pub.year and pub.year > 0 %}
+    {% assign year_str = pub.year | append: "" %}
+  {% endif %}
+
+  {% assign venue_raw = pub.venue %}
+  {% if venue_raw and year_str != "" %}
+    {% assign year_suffix = ", " | append: year_str %}
+    {% assign year_suffix_sp = " , " | append: year_str %}
+    {% assign venue_raw = venue_raw | replace: year_suffix, "" | replace: year_suffix_sp, "" %}
+  {% endif %}
+  {% assign venue = venue_raw | escape %}
+
+  {% assign abbr = "" %}
+  {% if render and render.venue_abbreviations %}
+    {% for item in render.venue_abbreviations %}
+      {% if abbr == "" and venue_raw and venue_raw contains item.match %}
+        {% assign abbr = item.label %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% assign abbr_label = "" %}
+  {% if abbr != "" %}
+    {% assign abbr_label = abbr %}
+    {% if year_str != "" %}
+      {% assign abbr_label = abbr_label | append: " " | append: year_str %}
+    {% endif %}
+  {% endif %}
+
+  <li>
+    {% if authors != "" %}{{ authors }}.{% endif %}
+    {% if pub.title %}
+      {% if pub.scholar_url %}
+        <a href="{{ pub.scholar_url | escape }}" target="_blank" rel="noopener">{{ pub.title | escape }}</a>.
+      {% else %}
+        {{ pub.title | escape }}.
+      {% endif %}
+    {% endif %}
+    {% if venue != "" %} <em>{{ venue }}</em>.{% endif %}
+    {% if abbr_label != "" %}
+      (<strong>{{ abbr_label | escape }}</strong>)
+    {% elsif year_str != "" %}
+      {{ year_str }}.
+    {% endif %}
+  </li>
+{% endfor %}
+</ol>
+{% if pubs_data.last_updated %}
+<small>Last updated: {{ pubs_data.last_updated }}</small>
+{% endif %}
+{% endif %}
