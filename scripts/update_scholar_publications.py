@@ -21,6 +21,14 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+PREFERRED_VENUE_FIELDS = (
+    "Conference",
+    "Journal",
+    "Publication",
+    "Book",
+    "Publisher",
+)
+
 
 def parse_config_scholar_url(config_path):
     if not os.path.exists(config_path):
@@ -105,7 +113,56 @@ def parse_publications(html):
     return publications
 
 
-def collect_publications(user_id, pagesize, sleep_seconds, max_pages):
+def needs_full_venue(venue):
+    if not venue:
+        return True
+    return "..." in venue or "\u2026" in venue
+
+
+def parse_detail_venue(html):
+    soup = BeautifulSoup(html, "html.parser")
+    fields = {}
+    for row in soup.select("div.gs_scl"):
+        field = row.select_one(".gsc_oci_field")
+        value = row.select_one(".gsc_oci_value")
+        if not field or not value:
+            field = row.select_one(".gsc_vcd_field")
+            value = row.select_one(".gsc_vcd_value")
+        if not field or not value:
+            continue
+        label = field.get_text(" ", strip=True)
+        fields[label] = value.get_text(" ", strip=True)
+
+    for key in PREFERRED_VENUE_FIELDS:
+        value = fields.get(key)
+        if value:
+            return value
+    return ""
+
+
+def resolve_full_venues(session, publications, sleep_seconds):
+    for pub in publications:
+        if not needs_full_venue(pub.get("venue", "")):
+            continue
+        scholar_url = pub.get("scholar_url", "")
+        if not scholar_url:
+            continue
+        html = fetch_page(session, scholar_url)
+        full_venue = parse_detail_venue(html)
+        if full_venue:
+            pub["venue"] = full_venue
+        if sleep_seconds > 0:
+            time.sleep(sleep_seconds)
+
+
+def collect_publications(
+    user_id,
+    pagesize,
+    sleep_seconds,
+    max_pages,
+    resolve_venues,
+    detail_sleep_seconds,
+):
     session = requests.Session()
     start = 0
     pages_fetched = 0
@@ -136,6 +193,9 @@ def collect_publications(user_id, pagesize, sleep_seconds, max_pages):
         start += pagesize
         if sleep_seconds > 0:
             time.sleep(sleep_seconds)
+
+    if resolve_venues:
+        resolve_full_venues(session, all_publications, detail_sleep_seconds)
 
     return all_publications
 
@@ -174,7 +234,13 @@ def main():
     )
     parser.add_argument("--pagesize", type=int, default=100)
     parser.add_argument("--sleep", type=float, default=1.0)
+    parser.add_argument("--detail-sleep", type=float, default=0.5)
     parser.add_argument("--max-pages", type=int, default=0)
+    parser.add_argument(
+        "--no-resolve-venues",
+        action="store_true",
+        help="Disable per-publication requests to expand truncated venues.",
+    )
     args = parser.parse_args()
 
     scholar_url = args.scholar_url or parse_config_scholar_url(args.config)
@@ -190,6 +256,8 @@ def main():
         pagesize=args.pagesize,
         sleep_seconds=args.sleep,
         max_pages=args.max_pages,
+        resolve_venues=not args.no_resolve_venues,
+        detail_sleep_seconds=args.detail_sleep,
     )
     write_output(args.output, scholar_url, publications)
 
