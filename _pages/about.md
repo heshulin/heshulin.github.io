@@ -7,7 +7,7 @@ redirect_from:
 ---
 
 <div style="text-align:justify;text-justify:inter-word;" markdown="1">
-**Shulin He（何树林）** is currently a **Postdoctoral Researcher** with the [SUSTech Audio Intelligence Lab](https://sustechailab.github.io/) (SAIL), Department of Computer Science and Engineering, **Southern University of Science and Technology (SUSTech)**, Shenzhen, China, working with [Dr. Zhongqiu Wang](https://zqwang7.github.io/).
+**Shulin He (何树林)** is currently a **Postdoctoral Researcher** with the [SUSTech Audio Intelligence Lab](https://sustechailab.github.io/) (SAIL), Department of Computer Science and Engineering, **Southern University of Science and Technology (SUSTech)**, Shenzhen, China, working with [Dr. Zhongqiu Wang](https://zqwang7.github.io/).
 
 He received the **B.Eng. degree** in Computer Science from Inner Mongolia University (IMU), Hohhot, China, in **2019** and has been enrolled in a combined master-to-Ph.D. program at IMU since the same year, supervised by [Prof. Xueliang Zhang](https://ccs.imu.edu.cn/info/1020/1849.htm) in the **IMUSpeech** group.  
 
