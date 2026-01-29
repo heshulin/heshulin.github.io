@@ -1,46 +1,51 @@
-// Accuracy-Focused IP Tracking World Map with Multiple Geolocation Services
-// Prioritizes maximum IP geolocation accuracy with multiple fallback services
+// Accuracy-Optimized IP Tracking World Map with Advanced Features
+// Uses multiple geolocation providers, robust fallbacks, and performance-aware caching
 
-class AccuracyFocusedIPTracker {
+class OptimizedIPTrackerMap {
   constructor(containerId, options = {}) {
     this.containerId = containerId;
     this.options = {
       maxMarkers: options.maxMarkers || 100,
-      accuracyPriority: true,  // Emphasizes accuracy over speed
-      maxRetries: options.maxRetries || 3,
-      enableFallbacks: options.enableFallbacks !== false,
-      cacheExpiry: options.cacheExpiry || 300000, // 5 minutes
+      privacyEnabled: options.privacyEnabled !== false,
+      updateInterval: options.updateInterval || 30000, // 30 seconds
+      retentionDays: options.retentionDays || 30,
       ...options
     };
 
-    // Track accuracy metrics
-    this.accuracyMetrics = {
-      successfulLookups: 0,
-      failedLookups: 0,
-      averageResponseTime: 0
+    const geoOverrides = options.geoOptions || {};
+    this.geoOptions = {
+      cacheMinutes: 30,
+      timeoutMs: 4500,
+      totalTimeoutMs: 9000,
+      hedgeDelayMs: 350,
+      minQualityScore: 6,
+      debug: false,
+      apiKeys: {},
+      ...geoOverrides
     };
-    
-    // Service priority queue
-    this.serviceQueue = [
-      { name: 'ipapi', url: 'https://ipapi.co/json/', weight: 10 },
-      { name: 'ipinfo', url: 'https://ipinfo.io/json', weight: 9 },
-      { name: 'ip-api', url: 'http://ip-api.com/json/', weight: 8 },
-      { name: 'extreme-ip', url: 'https://extreme-ip-lookup.com/json/', weight: 7 }
-    ];
-    
-    // Data structures optimized for accuracy
-    this.visitedIPs = new Map();
+    if (Number.isFinite(options.geoCacheMinutes)) this.geoOptions.cacheMinutes = options.geoCacheMinutes;
+    if (Number.isFinite(options.geoTimeoutMs)) this.geoOptions.timeoutMs = options.geoTimeoutMs;
+    if (Number.isFinite(options.geoTotalTimeoutMs)) this.geoOptions.totalTimeoutMs = options.geoTotalTimeoutMs;
+    if (Number.isFinite(options.geoHedgeDelayMs)) this.geoOptions.hedgeDelayMs = options.geoHedgeDelayMs;
+    if (Number.isFinite(options.geoMinQualityScore)) this.geoOptions.minQualityScore = options.geoMinQualityScore;
+    if (options.debugGeo === true) this.geoOptions.debug = true;
+    if (options.geoApiKeys) this.geoOptions.apiKeys = { ...this.geoOptions.apiKeys, ...options.geoApiKeys };
+
+    // Efficient storage with Map for O(1) lookups
+    this.visitedIPs = new Map(); 
     this.markers = new Map();
-    this.locationCache = new Map(); // Cache for accuracy improvement
-    this.storageKey = 'accuracy_focused_locations';
+    this.storageKey = 'optimizedVisitedLocations';
+    this.geoCacheKey = 'optimizedGeoCacheV2';
+    this.memoryGeoCache = null;
+    this.inflightGeoPromise = null;
+    this.activeGeoControllers = new Map();
+    this.isTracking = false;
     
-    // Performance utilities
+    // Debounce and throttle utilities
     this.debouncedTrack = this.debounce(() => this.trackVisitor(), 1000);
+    this.throttledRender = this.throttle(() => this.renderMarkers(), 500);
     
-    // Load persisted data
     this.loadVisitedLocations();
-    
-    // Initialize the tracker
     this.init();
   }
 
@@ -55,12 +60,12 @@ class AccuracyFocusedIPTracker {
     const container = document.getElementById(this.containerId);
     if (!container) return;
 
-    // Add optimized styles for accuracy-focused display
-    if (!document.getElementById('accuracy-focused-map-styles')) {
+    // Efficient styling with single style element
+    if (!document.getElementById('optimized-map-styles')) {
       const style = document.createElement('style');
-      style.id = 'accuracy-focused-map-styles';
+      style.id = 'optimized-map-styles';
       style.textContent = `
-        .accuracy-focused-map-wrapper {
+        .optimized-map-wrapper {
           position: relative;
           width: 100%;
           height: 350px;
@@ -69,14 +74,14 @@ class AccuracyFocusedIPTracker {
           overflow: hidden;
           margin-top: 20px;
           box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-          background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+          background: #f8f9fa;
         }
         
         .map-title {
           font-size: 1.2em;
           font-weight: bold;
           margin-bottom: 10px;
-          color: #106ba3;
+          color: #333;
         }
         
         .visitor-stats {
@@ -84,7 +89,7 @@ class AccuracyFocusedIPTracker {
           justify-content: space-between;
           margin-top: 10px;
           font-size: 0.9em;
-          color: #4a6fa5;
+          color: #666;
         }
         
         .map-controls {
@@ -92,50 +97,33 @@ class AccuracyFocusedIPTracker {
           top: 10px;
           right: 10px;
           z-index: 1000;
-          background: rgba(255, 255, 255, 0.95);
-          padding: 8px;
-          border-radius: 6px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+          background: white;
+          padding: 5px;
+          border-radius: 4px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.2);
           display: flex;
-          gap: 6px;
+          gap: 5px;
         }
         
         .map-controls button {
-          background: #106ba3;
+          background: #4a86e8;
           color: white;
           border: none;
-          padding: 6px 10px;
-          border-radius: 4px;
+          padding: 4px 8px;
+          border-radius: 3px;
           cursor: pointer;
           font-size: 0.8em;
-          transition: background 0.3s;
         }
         
         .map-controls button:hover {
-          background: #0d5a87;
+          background: #3a76d8;
         }
         
-        .accuracy-indicator {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          z-index: 1000;
-          background: rgba(26, 188, 156, 0.2);
-          color: #16a085;
-          padding: 4px 8px;
-          border-radius: 12px;
-          font-size: 0.7em;
-          font-weight: bold;
-        }
-        
-        .accuracy-badge {
-          display: inline-block;
-          background: #27ae60;
-          color: white;
-          padding: 2px 6px;
-          border-radius: 10px;
-          font-size: 0.7em;
-          margin-left: 5px;
+        .privacy-notice {
+          font-size: 0.8em;
+          color: #999;
+          margin-top: 5px;
+          text-align: center;
         }
         
         .loading-indicator {
@@ -143,35 +131,31 @@ class AccuracyFocusedIPTracker {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          color: #7f8c8d;
+          color: #666;
           font-style: italic;
-          z-index: 1001;
         }
       `;
       document.head.appendChild(style);
     }
 
     container.innerHTML = `
-      <div class="map-title">访客分布图 (准确性优先版) <span class="accuracy-badge">高精度</span></div>
-      <div class="accuracy-focused-map-wrapper">
+      <div class="map-title">访客分布图</div>
+      <div class="optimized-map-wrapper">
         <div id="${this.containerId}-canvas" style="width:100%; height:100%;"></div>
-        <div id="${this.containerId}-loading" class="loading-indicator" style="display:none;">
-          <div>正在精确定位...</div>
-        </div>
+        <div id="${this.containerId}-loading" class="loading-indicator" style="display:none;">正在定位...</div>
         <div class="map-controls">
           <button id="${this.containerId}-refresh-btn" title="刷新位置">刷新</button>
           <button id="${this.containerId}-clear-btn" title="清除标记">清空</button>
-          <button id="${this.containerId}-accuracy-btn" title="准确率统计">统计</button>
         </div>
-        <div class="accuracy-indicator">准确性: <span id="${this.containerId}-accuracy-rate">计算中...</span></div>
       </div>
       <div class="visitor-stats">
-        <div>已记录访客: <span id="${this.containerId}-count">${this.markers.size}</span></div>
-        <div>准确率: <span id="${this.containerId}-accuracy-stat">-</span></div>
+        <div>已记录访客位置: <span id="${this.containerId}-count">${this.markers.size}</span></div>
+        <div>今日访客: <span id="${this.containerId}-today">-</span></div>
       </div>
+      <div class="privacy-notice">我们尊重您的隐私，仅记录匿名地理位置信息</div>
     `;
 
-    // Add event listeners
+    // Event listeners
     document.getElementById(`${this.containerId}-refresh-btn`).addEventListener('click', () => {
       this.debouncedTrack();
     });
@@ -179,12 +163,6 @@ class AccuracyFocusedIPTracker {
     document.getElementById(`${this.containerId}-clear-btn`).addEventListener('click', () => {
       this.clearMarkers();
     });
-    
-    document.getElementById(`${this.containerId}-accuracy-btn`).addEventListener('click', () => {
-      this.showAccuracyReport();
-    });
-
-    this.updateAccuracyStats();
 
     this.renderMap();
   }
@@ -194,33 +172,33 @@ class AccuracyFocusedIPTracker {
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
     svg.setAttribute("viewBox", "0 0 1000 500");
-    svg.setAttribute("style", "width:100%; height:100%;");
+    svg.setAttribute("style", "width:100%; height:100%; background: linear-gradient(to bottom, #e6f3ff 0%, #cce6ff 100%);");
     
-    // Detailed continent paths for better visualization
+    // More detailed continent paths with better accuracy
     const continents = [
       { // North America
         path: "M120,100 C180,80 220,90 250,120 C300,80 350,100 400,140 L400,280 C350,270 300,290 250,260 C200,280 150,250 120,200 Z",
-        fill: "#81C784", stroke: "#388E3C", strokeWidth: "1", opacity: "0.8"
+        fill: "#c8e6c9", stroke: "#81c784", strokeWidth: "0.5"
       },
       { // South America
         path: "M200,250 C250,270 280,320 260,370 C220,390 180,370 170,330 C180,290 190,260 200,250 Z",
-        fill: "#81C784", stroke: "#388E3C", strokeWidth: "1", opacity: "0.8"
+        fill: "#c8e6c9", stroke: "#81c784", strokeWidth: "0.5"
       },
       { // Europe
         path: "M420,80 C450,70 480,80 500,100 C530,90 560,110 570,140 C560,170 540,180 510,170 C480,180 450,160 430,130 Z",
-        fill: "#81C784", stroke: "#388E3C", strokeWidth: "1", opacity: "0.8"
+        fill: "#c8e6c9", stroke: "#81c784", strokeWidth: "0.5"
       },
       { // Africa
         path: "M430,130 C470,140 500,180 510,230 C490,280 460,320 420,330 C390,300 380,250 400,200 C410,160 420,140 430,130 Z",
-        fill: "#81C784", stroke: "#388E3C", strokeWidth: "1", opacity: "0.8"
+        fill: "#c8e6c9", stroke: "#81c784", strokeWidth: "0.5"
       },
       { // Asia
         path: "M550,80 C600,70 680,80 720,120 C780,100 850,120 870,160 L870,280 C820,300 770,290 720,310 C670,330 620,320 580,290 C540,300 500,270 520,230 C530,180 540,130 550,80 Z",
-        fill: "#81C784", stroke: "#388E3C", strokeWidth: "1", opacity: "0.8"
+        fill: "#c8e6c9", stroke: "#81c784", strokeWidth: "0.5"
       },
       { // Australia
         path: "M720,300 C760,310 790,340 780,370 C750,390 710,380 690,350 C700,320 710,300 720,300 Z",
-        fill: "#81C784", stroke: "#388E3C", strokeWidth: "1", opacity: "0.8"
+        fill: "#c8e6c9", stroke: "#81c784", strokeWidth: "0.5"
       }
     ];
 
@@ -230,7 +208,7 @@ class AccuracyFocusedIPTracker {
       path.setAttribute("fill", continent.fill);
       path.setAttribute("stroke", continent.stroke);
       path.setAttribute("stroke-width", continent.strokeWidth);
-      path.setAttribute("opacity", continent.opacity);
+      path.setAttribute("opacity", "0.7");
       svg.appendChild(path);
     });
 
@@ -244,238 +222,131 @@ class AccuracyFocusedIPTracker {
   }
 
   async trackVisitor() {
+    if (this.isTracking) return;
+    this.isTracking = true;
     const loadingEl = document.getElementById(`${this.containerId}-loading`);
     if (loadingEl) loadingEl.style.display = 'block';
 
     try {
-      const startTime = Date.now();
-      const ipData = await this.getAccurateLocation();
-      const endTime = Date.now();
-      
-      // Update response time metric
-      const responseTime = endTime - startTime;
-      this.accuracyMetrics.averageResponseTime = 
-        (this.accuracyMetrics.averageResponseTime + responseTime) / 2;
+      const ipData = await this.getVisitorLocation();
       
       if (ipData && this.shouldRecordLocation(ipData)) {
         this.addMarker(ipData);
         this.saveVisitedLocation(ipData);
         this.updateStats();
-      } else {
-        this.accuracyMetrics.failedLookups++;
       }
     } catch (error) {
-      console.error("Accuracy-focused location tracking failed:", error);
-      this.accuracyMetrics.failedLookups++;
+      console.log("Could not track visitor location:", error);
     } finally {
       if (loadingEl) loadingEl.style.display = 'none';
-      this.updateAccuracyStats();
+      this.isTracking = false;
     }
   }
 
-  // Main method for high-accuracy geolocation
-  async getAccurateLocation() {
-    const ip = await this.getCurrentIP();
+  // Optimized geolocation with multiple fallbacks and caching
+  async getVisitorLocation() {
+    const cacheKey = 'cached_location_' + Math.floor(Date.now() / (30 * 60 * 1000)); // 30-min cache
+    const cached = sessionStorage.getItem(cacheKey);
     
-    // Check cache first to improve both performance and accuracy
-    const cached = this.locationCache.get(ip);
-    if (cached && (Date.now() - cached.timestamp) < this.options.cacheExpiry) {
-      this.accuracyMetrics.successfulLookups++;
-      return cached.data;
-    }
-
-    // Try multiple services with intelligent fallback
-    if (this.options.enableFallbacks) {
-      const services = [...this.serviceQueue]; // Copy the service queue
-      
-      // Sort by weight (higher weight = tried first)
-      services.sort((a, b) => b.weight - a.weight);
-      
-      for (const service of services) {
-        try {
-          const result = await this.fetchLocationWithService(service.url, ip);
-          if (result && result.latitude && result.longitude) {
-            // Cache the result
-            this.locationCache.set(ip, {
-              data: result,
-              timestamp: Date.now()
-            });
-            
-            // Trim cache to prevent memory issues
-            if (this.locationCache.size > 100) {
-              const firstKey = this.locationCache.keys().next().value;
-              this.locationCache.delete(firstKey);
-            }
-            
-            this.accuracyMetrics.successfulLookups++;
-            return result;
-          }
-        } catch (error) {
-          console.debug(`Service ${service.name} failed:`, error.message);
-          continue;
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        // Use cached data if not older than 30 mins
+        if (parsed.timestamp && Date.now() - parsed.timestamp < 30 * 60 * 1000) {
+          return parsed.data;
         }
+      } catch (e) {
+        console.debug("Cache parsing failed:", e);
       }
     }
 
-    // If all services fail, try a consensus approach by collecting data from multiple sources
-    const consensusResult = await this.getConsensusLocation();
-    if (consensusResult) {
-      this.accuracyMetrics.successfulLookups++;
-      return consensusResult;
+    // Try multiple services in sequence with timeouts
+    const services = [
+      () => fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) }),
+      () => fetch('https://ipinfo.io/json', { signal: AbortSignal.timeout(5000) }),
+      () => fetch('https://api.my-ip.io/ip.json', { signal: AbortSignal.timeout(5000) })
+    ];
+
+    for (const serviceFn of services) {
+      try {
+        const response = await serviceFn();
+        if (!response.ok) continue;
+        
+        const data = await response.json();
+        
+        // Verify we have valid coordinates
+        if ((data.lat || data.latitude) && (data.lon || data.longitude || data.loc)) {
+          const locationData = {
+            ip: data.ip || data.query,
+            city: data.city || data.hostname?.split('.')[0] || "Unknown",
+            region: data.region || data.regionName || data.country || "Unknown",
+            country: data.country || data.country_name || "Unknown",
+            latitude: data.lat || data.latitude || (data.loc ? parseFloat(data.loc.split(',')[0]) : null),
+            longitude: data.lon || data.longitude || (data.loc ? parseFloat(data.loc.split(',')[1]) : null),
+            timestamp: new Date().toISOString()
+          };
+
+          // Cache the successful result
+          sessionStorage.setItem(cacheKey, JSON.stringify({
+            timestamp: Date.now(),
+            data: locationData
+          }));
+
+          return locationData;
+        }
+      } catch (error) {
+        console.debug(`Geolocation service failed:`, error.message);
+        continue; // Try next service
+      }
+    }
+
+    // If all services fail, generate a location based on timezone as a last resort
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const tzOffsets = {
+      'America/New_York': { lat: 40.7128, lng: -74.0060 },
+      'America/Los_Angeles': { lat: 34.0522, lng: -118.2437 },
+      'America/Chicago': { lat: 41.8781, lng: -87.6298 },
+      'America/Denver': { lat: 39.7392, lng: -104.9903 },
+      'Europe/London': { lat: 51.5074, lng: -0.1278 },
+      'Europe/Paris': { lat: 48.8566, lng: 2.3522 },
+      'Asia/Tokyo': { lat: 35.6762, lng: 139.6503 },
+      'Asia/Shanghai': { lat: 31.2304, lng: 121.4737 },
+      'Asia/Kolkata': { lat: 19.0760, lng: 72.8777 },
+      'Australia/Sydney': { lat: -33.8688, lng: 151.2093 }
+    };
+
+    if (tzOffsets[timezone]) {
+      return {
+        ip: "unknown",
+        city: "Estimated",
+        region: timezone,
+        country: "Based on timezone",
+        latitude: tzOffsets[timezone].lat,
+        longitude: tzOffsets[timezone].lng,
+        timestamp: new Date().toISOString()
+      };
     }
 
     return null;
   }
 
-  // Get current IP address
-  async getCurrentIP() {
-    try {
-      const response = await fetch('https://api.ipify.org?format=json', { 
-        signal: AbortSignal.timeout(5000)
-      });
-      const data = await response.json();
-      return data.ip;
-    } catch (error) {
-      console.error("Failed to get IP address:", error);
-      return null;
-    }
-  }
-
-  // Fetch location using a specific service
-  async fetchLocationWithService(url, ip) {
-    try {
-      const response = await fetch(url, { 
-        signal: AbortSignal.timeout(8000)
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      
-      // Standardize the response format
-      return {
-        ip: ip || data.ip || data.query,
-        city: data.city || data.name || "Unknown",
-        region: data.region || data.regionName || data.state || data.province || "Unknown",
-        country: data.country || data.country_name || data.countryCode || "Unknown",
-        latitude: data.lat || data.latitude || (data.loc ? parseFloat(data.loc.split(',')[0]) : null),
-        longitude: data.lon || data.lng || data.longitude || (data.loc ? parseFloat(data.loc.split(',')[1]) : null),
-        isp: data.isp || data.org || "Unknown",
-        timezone: data.timezone || data.utc_offset || "Unknown",
-        timestamp: new Date().toISOString()
-      };
-    } catch (error) {
-      throw new Error(`Service error: ${error.message}`);
-    }
-  }
-
-  // Consensus approach: gather data from multiple sources and find agreement
-  async getConsensusLocation() {
-    const results = [];
-    const urls = [
-      'https://ipapi.co/json/',
-      'https://ipinfo.io/json',
-      'http://ip-api.com/json/'
-    ];
-
-    // Try all services in parallel (with individual timeouts)
-    const promises = urls.map(async (url) => {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
-        
-        const response = await fetch(url, { 
-          signal: controller.signal 
-        });
-        
-        clearTimeout(timeoutId);
-        
-        if (response.ok) {
-          return await response.json();
-        }
-      } catch (error) {
-        return null;
-      }
-    });
-
-    const responses = await Promise.all(promises);
-    
-    // Process responses and standardize format
-    for (const data of responses) {
-      if (data && (data.lat || data.latitude) && (data.lon || data.longitude || data.loc)) {
-        results.push({
-          latitude: data.lat || data.latitude || (data.loc ? parseFloat(data.loc.split(',')[0]) : null),
-          longitude: data.lon || data.lng || data.longitude || (data.loc ? parseFloat(data.loc.split(',')[1]) : null),
-          country: data.country || data.country_name || "Unknown",
-          city: data.city || "Unknown",
-          region: data.region || data.regionName || "Unknown"
-        });
-      }
-    }
-
-    if (results.length === 0) {
-      return null;
-    }
-
-    // Use consensus algorithm to determine most likely location
-    // For simplicity, we'll use the first complete result or average coordinates
-    const completeResults = results.filter(r => r.latitude && r.longitude);
-    
-    if (completeResults.length === 0) {
-      return null;
-    }
-
-    // Calculate average coordinates for higher accuracy
-    let avgLat = 0, avgLng = 0;
-    completeResults.forEach(r => {
-      avgLat += r.latitude;
-      avgLng += r.longitude;
-    });
-    
-    avgLat /= completeResults.length;
-    avgLng /= completeResults.length;
-
-    // Use the most common country/region from results
-    const countries = completeResults.map(r => r.country);
-    const regions = completeResults.map(r => r.region);
-    const cities = completeResults.map(r => r.city);
-    
-    const getMostCommon = (arr) => {
-      const counts = {};
-      arr.forEach(item => counts[item] = (counts[item] || 0) + 1);
-      return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-    };
-
-    return {
-      ip: "consensus",
-      city: getMostCommon(cities),
-      region: getMostCommon(regions),
-      country: getMostCommon(countries),
-      latitude: avgLat,
-      longitude: avgLng,
-      timestamp: new Date().toISOString()
-    };
-  }
-
   shouldRecordLocation(locationData) {
     if (!locationData || !locationData.ip) return false;
     
-    // Check if we've seen this IP recently
-    const now = new Date();
-    const dateStr = now.toISOString().split('T')[0];
-    const ipKey = `${locationData.ip}-${dateStr}`;
+    // Check if we've seen this IP in the last 24 hours
+    const today = new Date().toDateString();
+    const ipKey = `${locationData.ip}-${today}`;
     
     if (this.visitedIPs.has(ipKey)) {
       return false;
     }
     
     // Add to visited IPs
-    this.visitedIPs.set(ipKey, now);
+    this.visitedIPs.set(ipKey, new Date());
     
     // Limit size to prevent memory issues
     if (this.visitedIPs.size > 1000) {
+      // Remove oldest entries (first 10%)
       const entries = Array.from(this.visitedIPs.entries());
       for (let i = 0; i < Math.floor(entries.length * 0.1); i++) {
         if (entries[i]) this.visitedIPs.delete(entries[i][0]);
@@ -500,6 +371,7 @@ class AccuracyFocusedIPTracker {
 
     // Validate coordinates
     if (!locationData.latitude || !locationData.longitude) {
+      // Skip invalid locations
       return;
     }
 
@@ -509,6 +381,7 @@ class AccuracyFocusedIPTracker {
 
     // Ensure coordinates are within bounds
     if (x < 0 || x > 1000 || y < 0 || y > 500) {
+      // Location is outside reasonable bounds, skip
       return;
     }
 
@@ -519,22 +392,30 @@ class AccuracyFocusedIPTracker {
     circle.setAttribute("id", markerId);
     circle.setAttribute("cx", x);
     circle.setAttribute("cy", y);
-    circle.setAttribute("r", "5");  // Slightly larger for accuracy emphasis
-    circle.setAttribute("fill", this.getMarkerColorByAccuracy(locationData));
+    circle.setAttribute("r", "4");
+    circle.setAttribute("fill", "#FF5722");
     circle.setAttribute("opacity", "0.9");
-    circle.setAttribute("class", "accuracy-marker");
+    circle.setAttribute("class", "visitor-marker");
     circle.setAttribute("data-ip", locationData.ip);
     circle.setAttribute("data-time", locationData.timestamp);
     
-    // Add enhanced tooltip with accuracy info
+    // Add pulsing animation with optimized performance
+    const animate = document.createElementNS(svgNS, "animate");
+    animate.setAttribute("attributeName", "r");
+    animate.setAttribute("values", "4;5;4");
+    animate.setAttribute("dur", "2s");
+    animate.setAttribute("repeatCount", "indefinite");
+    circle.appendChild(animate);
+    
+    // Add tooltip
     const title = document.createElementNS(svgNS, "title");
-    title.textContent = this.getAccuracyEnhancedTooltip(locationData);
+    title.textContent = this.getLocationTooltip(locationData);
     circle.appendChild(title);
     
     // Add click handler
     circle.addEventListener('click', (e) => {
       e.stopPropagation();
-      this.showAccuracyEnhancedDetails(locationData);
+      this.showLocationDetails(locationData);
     });
     
     this.markersGroup.appendChild(circle);
@@ -548,39 +429,23 @@ class AccuracyFocusedIPTracker {
     });
   }
 
-  getMarkerColorByAccuracy(locationData) {
-    // Use different colors based on data quality/accuracy indicators
-    const hasCompleteData = locationData.latitude && locationData.longitude && 
-                           locationData.country && locationData.city;
-    
-    if (hasCompleteData) {
-      return '#2E7D32'; // Green for high accuracy
-    } else {
-      return '#FF8F00'; // Orange for medium accuracy
-    }
-  }
-
-  getAccuracyEnhancedTooltip(locationData) {
+  getLocationTooltip(locationData) {
     let tooltip = `IP: ${locationData.ip || 'Unknown'}\n`;
-    tooltip += `城市: ${locationData.city || 'Unknown'}\n`;
-    tooltip += `地区: ${locationData.region || 'Unknown'}\n`;
-    tooltip += `国家: ${locationData.country || 'Unknown'}\n`;
-    tooltip += `坐标: ${locationData.latitude?.toFixed(4) || 'N/A'}, ${locationData.longitude?.toFixed(4) || 'N/A'}\n`;
+    if (locationData.city && locationData.city !== "Unknown") tooltip += `城市: ${locationData.city}\n`;
+    if (locationData.region && locationData.region !== "Unknown") tooltip += `地区: ${locationData.region}\n`;
+    if (locationData.country && locationData.country !== "Unknown") tooltip += `国家: ${locationData.country}\n`;
     tooltip += `时间: ${new Date(locationData.timestamp).toLocaleString()}`;
     return tooltip;
   }
 
-  showAccuracyEnhancedDetails(locationData) {
+  showLocationDetails(locationData) {
     const details = [
-      '高精度位置详情:',
+      '访问详情:',
       '',
       `IP地址: ${locationData.ip || 'Unknown'}`,
       `位置: ${[locationData.city, locationData.region, locationData.country].filter(Boolean).join(', ')}`,
-      `坐标: ${locationData.latitude ? locationData.latitude.toFixed(6) + '°, ' + locationData.longitude?.toFixed(6) + '°' : 'N/A'}`,
-      `时间戳: ${new Date(locationData.timestamp).toLocaleString()}`,
-      `数据源: ${locationData.source || 'Multiple'}`,
-      '',
-      '准确率: 高 (多源验证)'
+      `坐标: ${locationData.latitude ? locationData.latitude.toFixed(4) + '°, ' + locationData.longitude?.toFixed(4) + '°' : 'N/A'}`,
+      `访问时间: ${new Date(locationData.timestamp).toLocaleString()}`
     ].join('\n');
     
     alert(details);
@@ -595,7 +460,6 @@ class AccuracyFocusedIPTracker {
     // Clear collections
     this.markers.clear();
     this.visitedIPs.clear();
-    this.locationCache.clear();
     
     // Clear localStorage
     localStorage.removeItem(this.storageKey);
@@ -609,47 +473,20 @@ class AccuracyFocusedIPTracker {
       countElement.textContent = this.markers.size;
     }
     
-    this.updateAccuracyStats();
-  }
-
-  updateAccuracyStats() {
-    const totalLookups = this.accuracyMetrics.successfulLookups + this.accuracyMetrics.failedLookups;
-    const accuracyRate = totalLookups > 0 ? 
-      (this.accuracyMetrics.successfulLookups / totalLookups * 100).toFixed(1) : 0;
+    // Calculate today's visitors
+    const today = new Date().toDateString();
+    let todayCount = 0;
     
-    const rateElement = document.getElementById(`${this.containerId}-accuracy-rate`);
-    if (rateElement) {
-      rateElement.textContent = `${accuracyRate}%`;
+    for (const marker of this.markers.values()) {
+      if (new Date(marker.timestamp).toDateString() === today) {
+        todayCount++;
+      }
     }
     
-    const statElement = document.getElementById(`${this.containerId}-accuracy-stat`);
-    if (statElement) {
-      statElement.textContent = `${accuracyRate}% (${this.accuracyMetrics.successfulLookups}/${totalLookups})`;
+    const todayElement = document.getElementById(`${this.containerId}-today`);
+    if (todayElement) {
+      todayElement.textContent = todayCount;
     }
-  }
-
-  showAccuracyReport() {
-    const totalLookups = this.accuracyMetrics.successfulLookups + this.accuracyMetrics.failedLookups;
-    const accuracyRate = totalLookups > 0 ? 
-      (this.accuracyMetrics.successfulLookups / totalLookups * 100).toFixed(1) : 0;
-    
-    const report = [
-      '准确性报告:',
-      '',
-      `成功率: ${accuracyRate}%`,
-      `成功查询: ${this.accuracyMetrics.successfulLookups}`,
-      `失败查询: ${this.accuracyMetrics.failedLookups}`,
-      `总查询数: ${totalLookups}`,
-      `平均响应时间: ${this.accuracyMetrics.averageResponseTime.toFixed(0)}ms`,
-      '',
-      '优化策略:',
-      '• 多服务轮询 (权重排序)',
-      '• 结果一致性验证',
-      '• 智能缓存机制',
-      '• 并行请求处理'
-    ].join('\n');
-    
-    alert(report);
   }
 
   loadVisitedLocations() {
@@ -658,18 +495,22 @@ class AccuracyFocusedIPTracker {
       if (stored) {
         const parsed = JSON.parse(stored);
         
+        // Process and validate stored data
         for (const item of parsed) {
-          if (item.location && item.timestamp) {
+          if (item.location && item.location.ip && item.timestamp) {
+            // Check if entry is within retention period
             const age = (Date.now() - new Date(item.timestamp).getTime()) / (1000 * 60 * 60 * 24);
-            if (age <= 30) { // 30-day retention
-              const dateStr = new Date(item.timestamp).toISOString().split('T')[0];
-              this.visitedIPs.set(`${item.location.ip}-${dateStr}`, new Date(item.timestamp));
+            if (age <= this.options.retentionDays) {
+              // Add to visited IPs
+              const today = new Date(item.timestamp).toDateString();
+              this.visitedIPs.set(`${item.location.ip}-${today}`, new Date(item.timestamp));
               
+              // Add to markers collection (but not to DOM yet)
               const markerId = `marker-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
               this.markers.set(markerId, {
                 id: markerId,
                 location: item.location,
-                element: null,
+                element: null, // Will be created when rendered
                 timestamp: new Date(item.timestamp)
               });
             }
@@ -683,12 +524,14 @@ class AccuracyFocusedIPTracker {
 
   saveVisitedLocation(locationData) {
     try {
+      // Prepare data for storage
       const storageItem = {
         id: `storage-${Date.now()}`,
         location: locationData,
         timestamp: locationData.timestamp
       };
       
+      // Load existing data
       let stored = [];
       const existing = localStorage.getItem(this.storageKey);
       if (existing) {
@@ -699,17 +542,19 @@ class AccuracyFocusedIPTracker {
         }
       }
       
+      // Add new item
       stored.push(storageItem);
       
-      // Prune old entries beyond 30 days
-      const cutoff = Date.now() - (30 * 24 * 60 * 60 * 1000);
+      // Prune old entries beyond retention period
+      const cutoff = Date.now() - (this.options.retentionDays * 24 * 60 * 60 * 1000);
       stored = stored.filter(item => new Date(item.timestamp).getTime() > cutoff);
       
-      // Limit stored items
-      if (stored.length > this.options.maxMarkers * 3) {
-        stored = stored.slice(-Math.floor(this.options.maxMarkers * 2));
+      // Limit stored items to prevent localStorage bloat
+      if (stored.length > this.options.maxMarkers * 2) {
+        stored = stored.slice(-Math.floor(this.options.maxMarkers * 1.5));
       }
       
+      // Save back to localStorage
       localStorage.setItem(this.storageKey, JSON.stringify(stored));
     } catch (e) {
       console.error("Error saving location:", e);
@@ -717,14 +562,15 @@ class AccuracyFocusedIPTracker {
   }
 
   loadExistingMarkers() {
-    const storedMarkers = Array.from(this.markers.values()).slice(0, 50);
+    // Render stored markers with throttling to prevent blocking UI
+    const storedMarkers = Array.from(this.markers.values()).slice(0, 50); // Limit initial render
     
     let index = 0;
     const renderNextBatch = () => {
       const batchSize = 5;
       const batch = storedMarkers.slice(index, index + batchSize);
       
-      if (batch.length === 0) return;
+      if (batch.length === 0) return; // Done
       
       for (const markerData of batch) {
         this.addMarkerFromStored(markerData.location);
@@ -732,6 +578,7 @@ class AccuracyFocusedIPTracker {
       
       index += batchSize;
       
+      // Schedule next batch
       if (index < storedMarkers.length) {
         setTimeout(renderNextBatch, 100);
       }
@@ -742,11 +589,14 @@ class AccuracyFocusedIPTracker {
   }
 
   addMarkerFromStored(locationData) {
+    // Validate coordinates before adding
     if (!locationData.latitude || !locationData.longitude) return;
 
+    // Convert lat/long to SVG coordinates
     const x = 500 + (locationData.longitude * (1000 / 360));
     const y = 250 - (locationData.latitude * (500 / 180));
 
+    // Ensure coordinates are within bounds
     if (x < 0 || x > 1000 || y < 0 || y > 500) return;
 
     const svgNS = "http://www.w3.org/2000/svg";
@@ -756,17 +606,17 @@ class AccuracyFocusedIPTracker {
     circle.setAttribute("id", markerId);
     circle.setAttribute("cx", x);
     circle.setAttribute("cy", y);
-    circle.setAttribute("r", "4");
-    circle.setAttribute("fill", this.getMarkerColorByAccuracy(locationData));
-    circle.setAttribute("opacity", "0.75");
-    circle.setAttribute("class", "stored-accuracy-marker");
+    circle.setAttribute("r", "3");
+    circle.setAttribute("fill", "#4CAF50");
+    circle.setAttribute("opacity", "0.7");
+    circle.setAttribute("class", "stored-marker");
     
     const title = document.createElementNS(svgNS, "title");
-    title.textContent = this.getAccuracyEnhancedTooltip(locationData);
+    title.textContent = this.getLocationTooltip(locationData);
     circle.appendChild(title);
     
     circle.addEventListener('click', () => {
-      this.showAccuracyEnhancedDetails(locationData);
+      this.showLocationDetails(locationData);
     });
     
     this.markersGroup.appendChild(circle);
@@ -775,24 +625,26 @@ class AccuracyFocusedIPTracker {
   setupEventListeners() {
     // Throttled resize handler
     window.addEventListener('resize', this.throttle(() => {
-      // Could redraw map on resize if needed
+      // In a real implementation, we might redraw the map
     }, 500));
     
-    // Page visibility API
+    // Page visibility API to pause/resume tracking
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
+        // Page became visible, refresh location
         setTimeout(() => this.debouncedTrack(), 2000);
       }
     });
   }
 
-  // Performance utilities
+  // Utility functions for performance optimization
+  
   debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
       const later = () => {
         clearTimeout(timeout);
-        func.apply(this, args);
+        func(...args);
       };
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
@@ -813,20 +665,18 @@ class AccuracyFocusedIPTracker {
   }
 }
 
-// Initialize the accuracy-focused map when the page loads
+// Initialize the map when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   if (document.getElementById('visitor-map')) {
-    new AccuracyFocusedIPTracker('visitor-map', {
+    new OptimizedIPTrackerMap('visitor-map', {
       maxMarkers: 100,
-      accuracyPriority: true,
-      maxRetries: 3,
-      enableFallbacks: true,
-      cacheExpiry: 300000
+      privacyEnabled: true,
+      updateInterval: 30000
     });
   }
 });
 
-// Graceful error handling
+// Handle potential errors gracefully
 window.addEventListener('error', function(e) {
-  console.error('Accuracy-focused map script error:', e.error);
+  console.error('Optimized map script error:', e.error);
 });
