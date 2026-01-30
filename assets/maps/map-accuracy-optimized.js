@@ -243,74 +243,386 @@ class OptimizedIPTrackerMap {
     }
   }
 
-  // Optimized geolocation with multiple fallbacks and caching
+  // Accuracy-optimized geolocation with multiple fallbacks and caching
   async getVisitorLocation() {
-    const cacheKey = 'cached_location_' + Math.floor(Date.now() / (30 * 60 * 1000)); // 30-min cache
-    const cached = sessionStorage.getItem(cacheKey);
-    
-    if (cached) {
-      try {
-        const parsed = JSON.parse(cached);
-        // Use cached data if not older than 30 mins
-        if (parsed.timestamp && Date.now() - parsed.timestamp < 30 * 60 * 1000) {
-          return parsed.data;
+    const cached = this.readCachedLocation();
+    if (cached) return cached;
+
+    if (this.inflightGeoPromise) return this.inflightGeoPromise;
+
+    this.inflightGeoPromise = this.fetchBestLocation()
+      .then((location) => {
+        if (location) {
+          this.writeCachedLocation(location);
+          return location;
         }
-      } catch (e) {
-        console.debug("Cache parsing failed:", e);
-      }
+        return this.getTimezoneFallback();
+      })
+      .catch((error) => {
+        this.logGeoDebug('Geolocation failed', error);
+        return this.getTimezoneFallback();
+      })
+      .finally(() => {
+        this.inflightGeoPromise = null;
+      });
+
+    return this.inflightGeoPromise;
+  }
+
+  async fetchBestLocation() {
+    const services = this.getGeoServices();
+    if (services.length === 0) return null;
+
+    const totalTimeoutMs = this.geoOptions.totalTimeoutMs;
+    const hedgeDelayMs = this.geoOptions.hedgeDelayMs;
+    const minScore = this.geoOptions.minQualityScore;
+
+    return new Promise((resolve) => {
+      let resolved = false;
+      let pending = 0;
+      let best = null;
+
+      const finalize = (result) => {
+        if (resolved) return;
+        resolved = true;
+        this.abortActiveGeoControllers();
+        resolve(result);
+      };
+
+      const timeoutId = setTimeout(() => {
+        finalize(best ? best.data : null);
+      }, totalTimeoutMs);
+
+      services.forEach((service, index) => {
+        pending += 1;
+        const delay = index * hedgeDelayMs;
+
+        setTimeout(async () => {
+          if (resolved) {
+            pending -= 1;
+            return;
+          }
+
+          const result = await this.fetchGeoFromService(service);
+          pending -= 1;
+
+          if (result) {
+            const score = this.scoreLocation(result);
+            if (!best || score > best.score) {
+              best = { data: result, score };
+            }
+            if (score >= minScore) {
+              clearTimeout(timeoutId);
+              finalize(best.data);
+              return;
+            }
+          }
+
+          if (!resolved && pending === 0) {
+            clearTimeout(timeoutId);
+            finalize(best ? best.data : null);
+          }
+        }, delay);
+      });
+    });
+  }
+
+  getGeoServices() {
+    const apiKeys = this.geoOptions.apiKeys || {};
+    const ipinfoUrl = apiKeys.ipinfo
+      ? `https://ipinfo.io/json?token=${encodeURIComponent(apiKeys.ipinfo)}`
+      : 'https://ipinfo.io/json';
+
+    const ipapiUrl = new URL('https://ipapi.co/json/');
+    ipapiUrl.searchParams.set('fields', 'ip,city,region,country_name,latitude,longitude,timezone');
+    if (apiKeys.ipapi) {
+      ipapiUrl.searchParams.set('key', apiKeys.ipapi);
     }
 
-    // Try multiple services in sequence with timeouts
-    const services = [
-      () => fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) }),
-      () => fetch('https://ipinfo.io/json', { signal: AbortSignal.timeout(5000) }),
-      () => fetch('https://api.my-ip.io/ip.json', { signal: AbortSignal.timeout(5000) })
-    ];
-
-    for (const serviceFn of services) {
-      try {
-        const response = await serviceFn();
-        if (!response.ok) continue;
-        
-        const data = await response.json();
-        
-        // Verify we have valid coordinates
-        if ((data.lat || data.latitude) && (data.lon || data.longitude || data.loc)) {
-          const locationData = {
-            ip: data.ip || data.query,
-            city: data.city || data.hostname?.split('.')[0] || "Unknown",
-            region: data.region || data.regionName || data.country || "Unknown",
-            country: data.country || data.country_name || "Unknown",
-            latitude: data.lat || data.latitude || (data.loc ? parseFloat(data.loc.split(',')[0]) : null),
-            longitude: data.lon || data.longitude || (data.loc ? parseFloat(data.loc.split(',')[1]) : null),
-            timestamp: new Date().toISOString()
+    return [
+      {
+        name: 'ipapi',
+        url: ipapiUrl.toString(),
+        transform: (data) => ({
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country_name,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          timezone: data.timezone
+        })
+      },
+      {
+        name: 'ipinfo',
+        url: ipinfoUrl,
+        transform: (data) => {
+          const coords = this.parseLocString(data.loc);
+          return {
+            ip: data.ip,
+            city: data.city,
+            region: data.region,
+            country: data.country,
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+            timezone: data.timezone
           };
-
-          // Cache the successful result
-          sessionStorage.setItem(cacheKey, JSON.stringify({
-            timestamp: Date.now(),
-            data: locationData
-          }));
-
-          return locationData;
         }
-      } catch (error) {
-        console.debug(`Geolocation service failed:`, error.message);
-        continue; // Try next service
+      },
+      {
+        name: 'ipwhois',
+        url: 'https://ipwho.is/',
+        transform: (data) => {
+          if (data && data.success === false) return null;
+          return {
+            ip: data.ip,
+            city: data.city,
+            region: data.region,
+            country: data.country,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            timezone: data.timezone
+          };
+        }
+      },
+      {
+        name: 'geolocation-db',
+        url: 'https://geolocation-db.com/json/',
+        transform: (data) => ({
+          ip: data.IPv4 || data.ip,
+          city: data.city,
+          region: data.state,
+          country: data.country_name || data.country,
+          latitude: data.latitude,
+          longitude: data.longitude
+        })
       }
+    ];
+  }
+
+  async fetchGeoFromService(service) {
+    const timeoutMs = service.timeoutMs || this.geoOptions.timeoutMs;
+    const supportsAbort = typeof AbortController !== 'undefined';
+    const controller = supportsAbort ? new AbortController() : null;
+    if (controller) this.activeGeoControllers.set(service.name, controller);
+
+    let timeoutId = null;
+    if (controller) {
+      timeoutId = setTimeout(() => controller.abort(), timeoutMs);
     }
 
-    // If all services fail, generate a location based on timezone as a last resort
+    try {
+      const fetchOptions = {
+        signal: controller ? controller.signal : undefined,
+        cache: 'no-store',
+        credentials: 'omit',
+        mode: 'cors',
+        headers: { 'Accept': 'application/json' }
+      };
+
+      const response = supportsAbort
+        ? await fetch(service.url, fetchOptions)
+        : await this.fetchWithTimeout(service.url, timeoutMs, fetchOptions);
+
+      if (!response || response.timedOut) {
+        this.logGeoDebug(`${service.name} timeout`);
+        return null;
+      }
+
+      if (!response.ok) {
+        this.logGeoDebug(`${service.name} HTTP ${response.status}`);
+        return null;
+      }
+
+      const data = await response.json().catch((error) => {
+        this.logGeoDebug(`${service.name} JSON parse error`, error);
+        return null;
+      });
+
+      if (!data) return null;
+
+      const transformed = service.transform ? service.transform(data) : data;
+      return this.normalizeLocation(transformed, service.name);
+    } catch (error) {
+      if (error && error.name === 'AbortError') {
+        this.logGeoDebug(`${service.name} timeout`);
+      } else {
+        this.logGeoDebug(`${service.name} error`, error);
+      }
+      return null;
+    } finally {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (controller) this.activeGeoControllers.delete(service.name);
+    }
+  }
+
+  async fetchWithTimeout(url, timeoutMs, options) {
+    const timeoutPromise = new Promise((resolve) => {
+      setTimeout(() => resolve({ timedOut: true }), timeoutMs);
+    });
+    const fetchPromise = fetch(url, options);
+    return Promise.race([fetchPromise, timeoutPromise]);
+  }
+
+  normalizeLocation(location, source) {
+    if (!location) return null;
+
+    const latitude = this.parseCoordinate(location.latitude);
+    const longitude = this.parseCoordinate(location.longitude);
+    if (!this.isValidCoordinate(latitude, longitude)) return null;
+
+    return {
+      ip: location.ip || 'unknown',
+      city: this.cleanLabel(location.city),
+      region: this.cleanLabel(location.region),
+      country: this.cleanLabel(location.country),
+      latitude,
+      longitude,
+      timezone: location.timezone || null,
+      accuracy: Number.isFinite(location.accuracy) ? location.accuracy : null,
+      source,
+      timestamp: new Date().toISOString()
+    };
+  }
+
+  scoreLocation(location) {
+    let score = 0;
+    if (location.ip && location.ip !== 'unknown') score += 1;
+    if (location.city && location.city !== 'Unknown') score += 2;
+    if (location.region && location.region !== 'Unknown') score += 1;
+    if (location.country && location.country !== 'Unknown') score += 1;
+    if (Number.isFinite(location.accuracy)) {
+      if (location.accuracy <= 50) score += 2;
+      else if (location.accuracy <= 100) score += 1;
+    }
+    if (location.timezone) score += 1;
+    return score;
+  }
+
+  readCachedLocation() {
+    const maxAgeMs = this.getGeoCacheMaxAgeMs();
+    if (this.memoryGeoCache && Date.now() - this.memoryGeoCache.timestamp < maxAgeMs) {
+      return this.memoryGeoCache.data;
+    }
+
+    const cached = this.safeSessionGet(this.geoCacheKey);
+    if (!cached) return null;
+
+    const parsed = this.safeParseJSON(cached);
+    if (!parsed || !parsed.timestamp || !parsed.data) return null;
+
+    if (Date.now() - parsed.timestamp > maxAgeMs) return null;
+    this.memoryGeoCache = parsed;
+    return parsed.data;
+  }
+
+  writeCachedLocation(location) {
+    if (!location || location.source === 'timezone') return;
+    const payload = { timestamp: Date.now(), data: location };
+    this.memoryGeoCache = payload;
+    this.safeSessionSet(this.geoCacheKey, JSON.stringify(payload));
+  }
+
+  getGeoCacheMaxAgeMs() {
+    const cacheMinutes = Number.isFinite(this.geoOptions.cacheMinutes)
+      ? this.geoOptions.cacheMinutes
+      : 30;
+    return cacheMinutes * 60 * 1000;
+  }
+
+  safeParseJSON(value) {
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      this.logGeoDebug('Cache JSON parse failed', error);
+      return null;
+    }
+  }
+
+  safeSessionGet(key) {
+    try {
+      return sessionStorage.getItem(key);
+    } catch (error) {
+      this.logGeoDebug('SessionStorage get failed', error);
+      return null;
+    }
+  }
+
+  safeSessionSet(key, value) {
+    try {
+      sessionStorage.setItem(key, value);
+    } catch (error) {
+      this.logGeoDebug('SessionStorage set failed', error);
+    }
+  }
+
+  logGeoDebug(message, error) {
+    if (!this.geoOptions.debug) return;
+    if (error) {
+      console.debug(`[geo] ${message}`, error);
+    } else {
+      console.debug(`[geo] ${message}`);
+    }
+  }
+
+  abortActiveGeoControllers() {
+    for (const controller of this.activeGeoControllers.values()) {
+      try {
+        controller.abort();
+      } catch (error) {
+        // Ignore abort failures
+      }
+    }
+    this.activeGeoControllers.clear();
+  }
+
+  parseLocString(loc) {
+    if (!loc || typeof loc !== 'string') {
+      return { latitude: null, longitude: null };
+    }
+    const [lat, lon] = loc.split(',');
+    return {
+      latitude: this.parseCoordinate(lat),
+      longitude: this.parseCoordinate(lon)
+    };
+  }
+
+  parseCoordinate(value) {
+    if (value === null || value === undefined) return null;
+    const parsed = typeof value === 'number' ? value : parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  isValidCoordinate(lat, lon) {
+    return Number.isFinite(lat) && Number.isFinite(lon) &&
+      Math.abs(lat) <= 90 && Math.abs(lon) <= 180;
+  }
+
+  cleanLabel(value) {
+    if (!value) return "Unknown";
+    const text = String(value).trim();
+    if (!text) return "Unknown";
+    const lowered = text.toLowerCase();
+    if (lowered === 'unknown' || lowered === 'null' || lowered === 'undefined') {
+      return "Unknown";
+    }
+    return text;
+  }
+
+  getTimezoneFallback() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const tzOffsets = {
       'America/New_York': { lat: 40.7128, lng: -74.0060 },
       'America/Los_Angeles': { lat: 34.0522, lng: -118.2437 },
       'America/Chicago': { lat: 41.8781, lng: -87.6298 },
       'America/Denver': { lat: 39.7392, lng: -104.9903 },
+      'America/Sao_Paulo': { lat: -23.5505, lng: -46.6333 },
       'Europe/London': { lat: 51.5074, lng: -0.1278 },
       'Europe/Paris': { lat: 48.8566, lng: 2.3522 },
+      'Europe/Berlin': { lat: 52.5200, lng: 13.4050 },
       'Asia/Tokyo': { lat: 35.6762, lng: 139.6503 },
       'Asia/Shanghai': { lat: 31.2304, lng: 121.4737 },
+      'Asia/Singapore': { lat: 1.3521, lng: 103.8198 },
       'Asia/Kolkata': { lat: 19.0760, lng: 72.8777 },
       'Australia/Sydney': { lat: -33.8688, lng: 151.2093 }
     };
@@ -323,6 +635,7 @@ class OptimizedIPTrackerMap {
         country: "Based on timezone",
         latitude: tzOffsets[timezone].lat,
         longitude: tzOffsets[timezone].lng,
+        source: "timezone",
         timestamp: new Date().toISOString()
       };
     }
