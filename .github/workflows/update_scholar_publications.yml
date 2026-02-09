@@ -29,7 +29,7 @@ jobs:
           pip install requests beautifulsoup4
       - name: Update publications from Google Scholar
         run: |
-          python scripts/update_scholar_publications.py
+          python scripts/update_scholar_publications.py --no-resolve-venues
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
