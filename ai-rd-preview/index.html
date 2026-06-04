@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI R&D Productivity Preview | Shulin He</title>
+  <meta name="description" content="A 45-minute preview and fixed-scope workshop for turning AI usage into repeatable R&D workflows.">
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5d6877;
+      --line: #dce3ea;
+      --paper: #f6f8fb;
+      --panel: #ffffff;
+      --navy: #14213d;
+      --teal: #0f766e;
+      --teal-soft: #e6f3f1;
+      --amber: #b45309;
+      --amber-soft: #fff4df;
+      --green-soft: #e9f6ee;
+      --shadow: 0 22px 70px rgba(20, 33, 61, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.62;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 86vh;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(20, 33, 61, 0.96) 0%, rgba(20, 33, 61, 0.88) 48%, rgba(20, 33, 61, 0.36) 100%),
+        url("https://heshulin.github.io/images/profile.jpg");
+      background-color: var(--navy);
+      background-position: right 12% center;
+      background-repeat: no-repeat;
+      background-size: auto min(72vh, 520px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 14px;
+    }
+
+    .nav strong {
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .hero-content {
+      width: min(760px, 100%);
+      padding: 80px 0 96px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 18px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      border-radius: 8px;
+      color: #d9f5f1;
+      background: rgba(15, 118, 110, 0.26);
+      font-weight: 750;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 1.03;
+    }
+
+    .hero-lead {
+      max-width: 700px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 20px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 11px 18px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 760px;
+      margin-top: 42px;
+    }
+
+    .hero-fact {
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+      padding-top: 12px;
+    }
+
+    .hero-fact strong {
+      display: block;
+      color: #fff;
+      font-size: 19px;
+      line-height: 1.25;
+    }
+
+    .hero-fact span {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 14px;
+    }
+
+    section {
+      padding: 62px 0;
+    }
+
+    .band {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 26px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.12;
+    }
+
+    .section-lead {
+      max-width: 720px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid #f1d19b;
+      border-radius: 8px;
+      color: #7c3e05;
+      background: var(--amber-soft);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .two-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 22px;
+      box-shadow: 0 1px 0 rgba(20, 33, 61, 0.02);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.28;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card p {
+      margin: 0;
+    }
+
+    ul,
+    ol {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      max-width: 920px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 18px;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--teal-soft);
+      color: #0f5f58;
+      font-weight: 850;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .step span {
+      color: var(--muted);
+    }
+
+    .price-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+    }
+
+    .price {
+      margin: 8px 0 12px;
+      color: var(--navy);
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.16;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .highlight {
+      background: var(--green-soft);
+      border-color: #b8ddc2;
+    }
+
+    .proof {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .proof img {
+      width: 100%;
+      max-width: 320px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .proof-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .cta {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .cta .section-lead,
+    .cta .mini {
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    .cta-panel {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 22px;
+    }
+
+    .cta-panel strong {
+      color: #fff;
+    }
+
+    .question-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .question-list li {
+      margin: 0;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 12px;
+      color: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    footer {
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        background-position: right 12px top 96px;
+        background-size: auto 230px;
+      }
+
+      .hero-content {
+        padding: 290px 0 52px;
+      }
+
+      .hero-facts,
+      .grid,
+      .two-grid,
+      .proof,
+      .question-list {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .badge {
+        margin-top: 14px;
+      }
+
+      .hero-facts {
+        display: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .hero {
+        min-height: auto;
+        background-position: right 12px top 92px;
+        background-size: auto 145px;
+      }
+
+      .hero-content {
+        padding: 182px 0 30px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .hero-lead {
+        font-size: 18px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .actions {
+        display: grid;
+        margin-top: 22px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .button.secondary {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <nav class="nav" aria-label="Page navigation">
+        <strong>Shulin He / AI R&D Productivity Lab</strong>
+        <div class="nav-links">
+          <a href="#preview">45-min preview</a>
+          <a href="#workshop">Workshop</a>
+          <a href="#fit">Fit</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+      <div class="hero-content">
+        <div class="eyebrow">For associations, incubators, research centers, and R&D teams</div>
+        <h1>AI R&D Productivity Preview</h1>
+        <p class="hero-lead">把零散的大模型使用，变成科研团队、研发团队和硬科技创业团队可以复用、验证、协作的工作流。先做 45 分钟免费 preview，确认需求强度后再进入固定范围 workshop。</p>
+        <div class="actions">
+          <a class="button" href="#contact">Request a preview</a>
+          <a class="button secondary" href="#workshop">View workshop scope</a>
+        </div>
+        <div class="hero-facts" aria-label="Proof points">
+          <div class="hero-fact">
+            <strong>Researcher-led</strong>
+            <span>Top conference and journal publications; practical R&D workflows, not generic prompt training.</span>
+          </div>
+          <div class="hero-fact">
+            <strong>Small first ask</strong>
+            <span>45-minute preview for members, incubated teams, labs, or internal technical teams.</span>
+          </div>
+          <div class="hero-fact">
+            <strong>Fixed-scope follow-up</strong>
+            <span>Paid workshop, templates, boundary checklist, and follow-up memo. No open-ended custom dev first.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="preview">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">45 分钟免费 Preview</h2>
+            <p class="section-lead">适合作为协会会员活动、孵化器 founder upskill、研究中心内部分享、研发团队午餐会。目标不是卖课，而是发现一个具体、重复、值得改造的研发工作流。</p>
+          </div>
+          <div class="badge">First ask: free preview</div>
+        </div>
+        <div class="workflow">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div><strong>AI R&D workflow map</strong><span>从单次问答切换到 question brief、evidence table、task spec、review checklist、experiment memo。</span></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div><strong>Demo: technical research to evidence table</strong><span>展示如何把论文、网页、项目资料整理成可审计的技术证据，而不是让模型直接给结论。</span></div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div><strong>Demo: coding agent task spec</strong><span>把研发需求写成可执行任务规格，包含边界、测试、验证和交付检查。</span></div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div><strong>Demand discovery</strong><span>现场收集 1-2 个真实 workflow pain，判断是否值得进入团队 workshop。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="fit">
+      <div class="wrap">
+        <h2 class="section-title">Who It Fits</h2>
+        <p class="section-lead">最好的人群不是“完全没用过 AI”的团队，而是已经有人在用 ChatGPT、Claude、Cursor、Codex 或内部模型，但方法分散、质量不稳、缺少验证习惯的团队。</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Associations and incubators</h3>
+            <p>需要给会员、入驻团队、创业者提供轻量但高可信度的 AI 研发效率分享。</p>
+          </div>
+          <div class="card">
+            <h3>Research groups</h3>
+            <p>需要把 AI 用在文献、实验记录、代码任务、组会材料和 AI 使用边界上。</p>
+          </div>
+          <div class="card">
+            <h3>R&D and hard-tech teams</h3>
+            <p>需要更快完成技术调研、代码拆解、产品 spec、实验复盘和内部知识整理。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2 class="section-title">Why Not A Big Company?</h2>
+        <p class="section-lead">这个切入点不是采购企业平台，也不是大规模系统集成。它是一个小而可信的 researcher-led workflow intervention，适合先从实际团队任务里发现需求。</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Small enough to start</h3>
+            <p>45 分钟 preview 不需要走复杂采购。协会、园区、实验室、创业社区可以先低风险验证反馈。</p>
+          </div>
+          <div class="card">
+            <h3>Close to real R&D work</h3>
+            <p>内容围绕 research question、evidence table、coding agent task spec、实验日志和验证清单。</p>
+          </div>
+          <div class="card">
+            <h3>Boundaries included</h3>
+            <p>明确不做代写、造假、合规绕过、无限咨询或先承诺定制开发，降低组织方风险。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="workshop" class="band">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Paid Workshop Scope</h2>
+            <p class="section-lead">如果 preview 反馈明确，再进入固定范围的付费 workshop。交付物是团队能带走并继续使用的模板、流程和边界，而不是开放式顾问时间。</p>
+          </div>
+          <div class="badge">Fixed scope, fixed price</div>
+        </div>
+        <div class="grid">
+          <div class="card price-card">
+            <h3>Lab / academic team</h3>
+            <div class="price">RMB 10k-30k</div>
+            <p>一次内部 workshop，聚焦文献、实验记录、代码任务、组会材料和 AI 使用边界。</p>
+          </div>
+          <div class="card price-card highlight">
+            <h3>Remote half-day team workshop</h3>
+            <div class="price">RMB 30k-50k</div>
+            <p>面向研发团队或创业团队，交付目标 workflow map、模板包、验证 checklist 和 follow-up memo。</p>
+          </div>
+          <div class="card price-card">
+            <h3>One-day company workshop</h3>
+            <div class="price">RMB 60k-80k</div>
+            <p>适合跨职能研发团队，覆盖技术调研、代码任务、产品 spec、团队协作和边界治理。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap proof">
+        <div>
+          <img src="https://heshulin.github.io/images/profile.jpg" alt="Shulin He profile photo">
+        </div>
+        <div>
+          <h2 class="section-title">About Shulin He</h2>
+          <p class="section-lead">Shulin He / 何树林 is a postdoctoral researcher in computer science, with publications in speech, audio, and deep learning venues and industrial transfer experience. This preview is offered independently as an AI R&D productivity workflow practice.</p>
+          <ul class="proof-list">
+            <li>Research focus: deep learning, speech/audio, target speaker extraction, speech enhancement.</li>
+            <li>Public homepage: <a href="https://heshulin.github.io/">https://heshulin.github.io/</a></li>
+            <li>Positioning here: independent AI R&D workflow productization, not university procurement or lab service.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap">
+        <h2 class="section-title">Explicit Exclusions</h2>
+        <p class="section-lead">The offer is intentionally narrow. Narrow scope makes it easier for a channel partner or team lead to say yes to a first conversation.</p>
+        <div class="grid">
+          <div class="card"><h3>No ghostwriting</h3><p>不做论文代写、作业代做、虚假数据、虚假引用或合规绕过。</p></div>
+          <div class="card"><h3>No platform replacement</h3><p>不替代企业 AI 平台采购，也不一开始承诺生产系统集成。</p></div>
+          <div class="card"><h3>No unlimited consulting</h3><p>不卖开放式无限咨询。先通过 preview 发现需求，再进入固定范围交付。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="cta">
+      <div class="wrap">
+        <h2 class="section-title">Request A Preview</h2>
+        <p class="section-lead">If you received this page from an outreach email, reply to that sender and include the first workflow you want to improve. A direct contact form or independent email can be added after the contact channel is ready.</p>
+        <div class="cta-panel">
+          <strong>Good first question:</strong>
+          <p>你们最想先改善的一个重复研发工作流是什么？</p>
+          <ul class="question-list">
+            <li>Technical research / evidence table</li>
+            <li>Coding agent task spec / code review</li>
+            <li>Experiment log / result analysis memo</li>
+            <li>Product spec / team knowledge workflow</li>
+          </ul>
+          <p class="mini">Current contact route: reply to the sender of the outreach message. A direct independent contact channel will be added when ready.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">AI R&D Productivity Lab · Shulin He / 何树林 · Independent preview/workshop page · 2026</div>
+  </footer>
+</body>
+</html>
