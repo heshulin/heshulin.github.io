@@ -1,34 +1,41 @@
 {
   "source": "https://scholar.google.com/citations?user=IweWDgYAAAAJ&hl=en",
-  "last_updated": "2026-04-20",
+  "last_updated": "2026-06-15",
   "publications": [
+    {
+      "title": "LexTra: Folded Prompt and Split-Role Attention for Target Speaker Extraction",
+      "authors": "P Shen, S He, X Zhang, ZQ Wang",
+      "venue": "ICASSP 2026-2026 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2026",
+      "year": 2026,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:aqlVkmm33-oC"
+    },
+    {
+      "title": "MC-LExt: Multi-Channel Target Speaker Extraction with Onset-Prompted Speaker Conditioning Mechanism",
+      "authors": "T Ling, S He, P Shen, ZQ Wang",
+      "venue": "ICASSP 2026-2026 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2026",
+      "year": 2026,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:qxL8FJ1GzNcC"
+    },
+    {
+      "title": "VM-UNSSOR: Unsupervised Neural Speech Separation Enhanced by Higher-SNR Virtual Microphone Arrays",
+      "authors": "S He, ZQ Wang",
+      "venue": "ICASSP 2026-2026 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2026",
+      "year": 2026,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:M3ejUd6NZC8C"
+    },
+    {
+      "title": "Aneural Forward Filtering for Speaker-Image Separation",
+      "authors": "J Sun, S He, R Pang, ZQ Wang",
+      "venue": "ICASSP 2026-2026 IEEE International Conference on Acoustics, Speech and\u00a0\u2026 , 2026",
+      "year": 2026,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:4TOpqqG69KYC"
+    },
     {
       "title": "Listen to Extract: Onset-Prompted Target Speaker Extraction",
       "authors": "P Shen, K Chen, S He, P Chen, S Yuan, H Kong, X Zhang, ZQ Wang",
       "venue": "IEEE Transactions on Audio, Speech and Language Processing 33, 4832-4843 , 2025",
       "year": 2025,
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:KlAtU1dfN6UC"
-    },
-    {
-      "title": "MC-LExt: Multi-Channel Target Speaker Extraction with Onset-Prompted Speaker Conditioning Mechanism",
-      "authors": "T Ling, S He, P Shen, ZQ Wang",
-      "venue": "arXiv preprint arXiv:2510.15437 , 2025",
-      "year": 2025,
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:qxL8FJ1GzNcC"
-    },
-    {
-      "title": "VM-UNSSOR: Unsupervised Neural Speech Separation Enhanced by Higher-SNR Virtual Microphone Arrays",
-      "authors": "S He, ZQ Wang",
-      "venue": "arXiv preprint arXiv:2510.08914 , 2025",
-      "year": 2025,
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:M3ejUd6NZC8C"
-    },
-    {
-      "title": "Neural Forward Filtering for Speaker-Image Separation",
-      "authors": "J Sun, S He, R Pang, ZQ Wang",
-      "venue": "arXiv preprint arXiv:2510.05757 , 2025",
-      "year": 2025,
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:4TOpqqG69KYC"
     },
     {
       "title": "Advances in speech separation: Techniques, challenges, and future trends",
