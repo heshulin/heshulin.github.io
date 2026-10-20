@@ -16,9 +16,10 @@
     await mermaid.run({querySelector:'code.language-mermaid'});
 </script>
 
-<!-- MapMyVisitors Widget -->
-<div class="clustrmaps-widget" style="margin-top:2rem;text-align:center;">
-  <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=-LFjYklyqTMVjAA6WR4rDRcqLdocC-undesbTaRMZok&cl=ffffff&w=a"></script>
+<!-- MapMyVisitors counter with all-time visitor locations -->
+<div class="clustrmaps-widget" data-visitor-history="{{ '/assets/maps/visitor-history.json' | relative_url }}" style="margin-top:2rem;text-align:center;">
+  <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=-LFjYklyqTMVjAA6WR4rDRcqLdocC-undesbTaRMZok&cl=ffffff&w=a&t=tt"></script>
+  <script defer src="{{ '/assets/maps/visitor-history.js' | relative_url }}"></script>
 </div>
 
 <!-- end custom footer snippets -->

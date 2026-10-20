@@ -1,0 +1,308 @@
+{
+  "profileUrl": "https://mapmyvisitors.com/web/1c3bj",
+  "since": "2026-03-18",
+  "updatedAt": "2026-10-20T06:03:03Z",
+  "totalPageviews": 407,
+  "locations": [
+    {
+      "lat": 45.8491,
+      "lng": -119.7143,
+      "name": "Boardman, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 41.9032,
+      "lng": -87.6383,
+      "name": "Chicago, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 48.2,
+      "lng": 16.3667,
+      "name": "Austria",
+      "pageviews": 1
+    },
+    {
+      "lat": -6.1741,
+      "lng": 106.8296,
+      "name": "Jakarta, Indonesia",
+      "pageviews": 1
+    },
+    {
+      "lat": 47.6722,
+      "lng": -122.1257,
+      "name": "Redmond, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 33.6459,
+      "lng": -117.8427,
+      "name": "Irvine, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 8.0,
+      "lng": -2.0,
+      "name": "Ghana",
+      "pageviews": 1
+    },
+    {
+      "lat": 53.45,
+      "lng": -2.7833,
+      "name": "St Helens, United Kingdom",
+      "pageviews": 1
+    },
+    {
+      "lat": 34.9852,
+      "lng": 135.8385,
+      "name": "Kyoto, Japan",
+      "pageviews": 1
+    },
+    {
+      "lat": 36.1685,
+      "lng": -115.1164,
+      "name": "Las Vegas, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 35.4524,
+      "lng": 138.5669,
+      "name": "Koshu, Japan",
+      "pageviews": 1
+    },
+    {
+      "lat": 51.2993,
+      "lng": 9.491,
+      "name": "Germany",
+      "pageviews": 1
+    },
+    {
+      "lat": 22.3833,
+      "lng": 114.1833,
+      "name": "Shatin, Hong Kong",
+      "pageviews": 1
+    },
+    {
+      "lat": 30.3314,
+      "lng": -97.8666,
+      "name": "Austin, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 43.0391,
+      "lng": -76.1277,
+      "name": "Syracuse, United States",
+      "pageviews": 1
+    },
+    {
+      "lat": 24.0,
+      "lng": 54.0,
+      "name": "United Arab Emirates",
+      "pageviews": 1
+    },
+    {
+      "lat": 20.9908,
+      "lng": -86.9392,
+      "name": "Cancún, Mexico",
+      "pageviews": 1
+    },
+    {
+      "lat": 44.2983,
+      "lng": -76.4323,
+      "name": "Kingston, Canada",
+      "pageviews": 1
+    },
+    {
+      "lat": 48.8582,
+      "lng": 2.3387,
+      "name": "France",
+      "pageviews": 2
+    },
+    {
+      "lat": 37.5497,
+      "lng": -121.9621,
+      "name": "Fremont, United States",
+      "pageviews": 2
+    },
+    {
+      "lat": 31.1827,
+      "lng": -81.9722,
+      "name": "Nahunta, United States",
+      "pageviews": 2
+    },
+    {
+      "lat": 39.0481,
+      "lng": -77.4728,
+      "name": "Ashburn, United States",
+      "pageviews": 2
+    },
+    {
+      "lat": 36.7642,
+      "lng": 3.1468,
+      "name": "Algeria",
+      "pageviews": 2
+    },
+    {
+      "lat": 23.7908,
+      "lng": 90.4109,
+      "name": "Dhaka, Bangladesh",
+      "pageviews": 2
+    },
+    {
+      "lat": 28.0916,
+      "lng": -17.1133,
+      "name": "San Sebastián de La Gomera, Spain",
+      "pageviews": 2
+    },
+    {
+      "lat": 22.2833,
+      "lng": 114.1833,
+      "name": "Causeway Bay, Hong Kong",
+      "pageviews": 2
+    },
+    {
+      "lat": 23.5,
+      "lng": 121.0,
+      "name": "Taiwan",
+      "pageviews": 3
+    },
+    {
+      "lat": 38.9876,
+      "lng": -77.4554,
+      "name": "Dulles, United States",
+      "pageviews": 3
+    },
+    {
+      "lat": 35.685,
+      "lng": 139.7514,
+      "name": "Tokyo, Japan",
+      "pageviews": 3
+    },
+    {
+      "lat": 35.698,
+      "lng": 51.4115,
+      "name": "Iran",
+      "pageviews": 3
+    },
+    {
+      "lat": 40.7873,
+      "lng": -74.3211,
+      "name": "Livingston, United States",
+      "pageviews": 3
+    },
+    {
+      "lat": 34.3974,
+      "lng": 132.5749,
+      "name": "Hiroshima, Japan",
+      "pageviews": 3
+    },
+    {
+      "lat": 51.5164,
+      "lng": -0.093,
+      "name": "London, United Kingdom",
+      "pageviews": 3
+    },
+    {
+      "lat": 43.6319,
+      "lng": -79.3716,
+      "name": "Canada",
+      "pageviews": 3
+    },
+    {
+      "lat": 25.0478,
+      "lng": 121.5318,
+      "name": "Taipei, Taiwan",
+      "pageviews": 4
+    },
+    {
+      "lat": 22.2795,
+      "lng": 114.146,
+      "name": "Central, Hong Kong",
+      "pageviews": 4
+    },
+    {
+      "lat": 36.0,
+      "lng": 138.0,
+      "name": "Japan",
+      "pageviews": 5
+    },
+    {
+      "lat": 33.8654,
+      "lng": -84.3385,
+      "name": "Atlanta, United States",
+      "pageviews": 5
+    },
+    {
+      "lat": 32.0,
+      "lng": 35.25,
+      "name": "Palestine",
+      "pageviews": 6
+    },
+    {
+      "lat": 41.2619,
+      "lng": -95.8608,
+      "name": "Council Bluffs, United States",
+      "pageviews": 6
+    },
+    {
+      "lat": 51.4964,
+      "lng": -0.1224,
+      "name": "United Kingdom",
+      "pageviews": 7
+    },
+    {
+      "lat": 37.5112,
+      "lng": 126.9741,
+      "name": "South Korea",
+      "pageviews": 8
+    },
+    {
+      "lat": 34.7725,
+      "lng": 113.7266,
+      "name": "China",
+      "pageviews": 11
+    },
+    {
+      "lat": 35.404,
+      "lng": -78.4153,
+      "name": "Four Oaks, United States",
+      "pageviews": 14
+    },
+    {
+      "lat": 64.8401,
+      "lng": -147.7202,
+      "name": "Fairbanks, United States",
+      "pageviews": 17
+    },
+    {
+      "lat": -33.494,
+      "lng": 143.2104,
+      "name": "Australia",
+      "pageviews": 23
+    },
+    {
+      "lat": 22.25,
+      "lng": 114.1667,
+      "name": "Hong Kong",
+      "pageviews": 25
+    },
+    {
+      "lat": 53.0,
+      "lng": -8.0,
+      "name": "Ireland",
+      "pageviews": 57
+    },
+    {
+      "lat": -48.0,
+      "lng": 28.0,
+      "name": "Unknown Location",
+      "pageviews": 76
+    },
+    {
+      "lat": 37.751,
+      "lng": -97.822,
+      "name": "United States",
+      "pageviews": 82
+    }
+  ]
+}
