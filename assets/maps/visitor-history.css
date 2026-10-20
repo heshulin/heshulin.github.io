@@ -1,9 +1,9 @@
 .visitor-map {
   --visitor-ink: #263f4b;
   --visitor-muted: #72858e;
-  --visitor-point: #328796;
+  --visitor-point: #1c7b8b;
   --visitor-recent: #cd9444;
-  max-width: 760px;
+  max-width: 680px;
   margin: 28px auto 32px;
   padding: 24px 28px 18px;
   overflow: hidden;
@@ -52,6 +52,13 @@
   flex-shrink: 0;
 }
 
+.visitor-map .visitor-map__locations {
+  margin: 5px 0 0;
+  color: var(--visitor-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .visitor-map__total {
   color: var(--visitor-ink);
   font-size: 28px;
@@ -68,12 +75,18 @@
 }
 
 .visitor-map__canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.55;
   overflow: hidden;
   border-radius: 10px;
   background: #f8fafc;
 }
 
 .visitor-map a#mapmyvisitors-widget {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100% !important;
   min-height: 0;
   margin: 0;
@@ -90,6 +103,18 @@
   background-size: 100% 100%;
 }
 
+/* Cover controls baked into the provider's raster map, below the SVG dots. */
+.visitor-map .mapmyvisitors-map::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 65px;
+  background: #f8fafc;
+  pointer-events: none;
+}
+
 .visitor-map .mapmyvisitors-visitors,
 .visitor-map .mapmyvisitors-date,
 .visitor-map .jvectormap-zoomin,
@@ -99,14 +124,15 @@
 
 .visitor-map .jvectormap-marker {
   fill: var(--visitor-point);
-  fill-opacity: 0.85;
+  fill-opacity: 0.9;
   stroke: #fff;
-  stroke-width: 0.8;
+  stroke-width: 1;
+  filter: drop-shadow(0 0 3px rgba(28, 123, 139, 0.28));
 }
 
 /* Bound the provider's orange pulse while preserving historical dot sizes. */
 .visitor-map .jvectormap-marker[fill="#F8A400"] {
-  r: 4px;
+  r: 6px;
   fill: var(--visitor-recent);
   fill-opacity: 0.95;
 }

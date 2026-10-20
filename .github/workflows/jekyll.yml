@@ -14,6 +14,13 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # GITHUB_TOKEN commits do not trigger push workflows. Publish after the
+  # Scholar updater has successfully saved the refreshed publication list.
+  workflow_run:
+    workflows: ["Update Scholar Publications"]
+    types: [completed]
+    branches: ["master"]
+
   # Refresh the cumulative visitor map daily, without committing generated data.
   schedule:
     - cron: "15 3 * * *"
@@ -33,10 +40,17 @@ concurrency:
 jobs:
   # Build job
   build:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # The updater's bot commit is newer than workflow_run.head_sha.
+          ref: ${{ github.event.repository.default_branch }}
       - name: Setup Ruby
         # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
         uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4

@@ -77,7 +77,10 @@
     delete series.params.min;
     delete series.params.max;
     map.addMarkers(markers, [counts]);
-    series.setScale([2.4, 5.2]);
+    series.setScale([3.5, 10]);
+
+    const locationCount = widget.querySelector('[data-visitor-locations]');
+    if (locationCount) locationCount.textContent = locations.length + ' locations · sized by pageviews';
 
     const date = widget.querySelector('[data-visitor-since]') || widget.querySelector('.mapmyvisitors-date');
     const since = new Date(data.since + 'T00:00:00Z');
@@ -105,16 +108,35 @@
       }
     }
 
-    // The provider fixes its SVG size at startup. Refit it when the card resizes
-    // so dots remain aligned with the map on phones and after rotation.
-    if (window.ResizeObserver) {
-      new ResizeObserver(() => {
-        map.updateSize();
-        window.dispatchEvent(new Event('resize'));
-      }).observe(widget);
+    // Crop the raster map and SVG together, keeping every mapped location and
+    // a margin around it. The inner map retains its original projection ratio.
+    const canvas = widget.querySelector('.visitor-map__canvas');
+    const mapLink = widget.querySelector('#mapmyvisitors-widget');
+    function fitMap() {
+      map.updateSize();
+      if (canvas && mapLink) {
+        const points = Object.keys(map.markers)
+          .filter(id => !/unknown location/i.test(map.markers[id].config.name))
+          .map(id => map.getMarkerPosition(map.markers[id].config))
+          .filter(Boolean);
+        if (points.length) {
+          const padding = 24;
+          const top = Math.max(0, Math.min(...points.map(point => point.y)) - padding);
+          const bottom = Math.min(map.height, Math.max(...points.map(point => point.y)) + padding);
+          canvas.style.height = Math.ceil(bottom - top) + 'px';
+          mapLink.style.transform = 'translateY(-' + Math.floor(top) + 'px)';
+        }
+      }
+      window.dispatchEvent(new Event('resize'));
     }
-    map.updateSize();
-    window.dispatchEvent(new Event('resize'));
+    if (window.ResizeObserver) {
+      new ResizeObserver(fitMap).observe(widget);
+    }
+    // Newly arrived visitors can extend the visible geographic range.
+    if (map.markersGroup && map.markersGroup.node) {
+      new MutationObserver(fitMap).observe(map.markersGroup.node, { childList: true });
+    }
+    fitMap();
     widget.dataset.historyLoaded = 'true';
   }).catch(error => {
     // Keep the original working widget if the provider or history is unavailable.

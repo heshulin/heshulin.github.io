@@ -1,7 +1,21 @@
 {
   "source": "https://scholar.google.com/citations?user=IweWDgYAAAAJ&hl=en",
-  "last_updated": "2026-06-15",
+  "last_updated": "2026-10-20",
   "publications": [
+    {
+      "title": "VM-ARRAYDPS: Virtual Microphone Augmented Diffusion Posterior Sampling for Unsupervised Blind Speech Separation",
+      "authors": "J Sun, H Tang, S He, ZQ Wang",
+      "venue": "arXiv preprint arXiv:2610.09334 , 2026",
+      "year": 2026,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:Wp0gIr-vW9MC"
+    },
+    {
+      "title": "PhaseGAN: High-Fidelity Vocoder via Decoupled Amplitude and GAN-Driven Phase Reconstruction",
+      "authors": "W Zhang, X Zhang, S He, F Zhao, X Liu, P Shen, Z Guo, Z Xue, H Bao, ...",
+      "venue": "arXiv preprint arXiv:2609.12918 , 2026",
+      "year": 2026,
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:4DMP91E08xMC"
+    },
     {
       "title": "LexTra: Folded Prompt and Split-Role Attention for Target Speaker Extraction",
       "authors": "P Shen, S He, X Zhang, ZQ Wang",
@@ -31,7 +45,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:4TOpqqG69KYC"
     },
     {
-      "title": "Listen to Extract: Onset-Prompted Target Speaker Extraction",
+      "title": "Listen to extract: Onset-prompted target speaker extraction",
       "authors": "P Shen, K Chen, S He, P Chen, S Yuan, H Kong, X Zhang, ZQ Wang",
       "venue": "IEEE Transactions on Audio, Speech and Language Processing 33, 4832-4843 , 2025",
       "year": 2025,
@@ -66,14 +80,14 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:MXK_kJrjxJIC"
     },
     {
-      "title": "HWB-Net: A Novel High-Performance and Efficient Hybrid Waveform Bandwidth Extension Method",
+      "title": "Hwb-net: A novel high-performance and efficient hybrid waveform bandwidth extension method",
       "authors": "X Liu, S He, X Zhang",
       "venue": "Proc. Interspeech 2025, 4088-4092 , 2025",
       "year": 2025,
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:_kc_bZDykSQC"
     },
     {
-      "title": "TF-SkiMNet: Speech Enhancement Based on Inplace Modeling and Skipping Memory in Time-Frequency Domain",
+      "title": "Tf-skimnet: Speech enhancement based on inplace modeling and skipping memory in time-frequency domain",
       "authors": "Z Li, S He, J Bai, X Zhang",
       "venue": "Proc. Interspeech 2025, 5143-5147 , 2025",
       "year": 2025,
@@ -122,16 +136,16 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:roLk4NBRz8UC"
     },
     {
-      "title": "Deep Echo Path Modeling for Acoustic Echo Cancellation.",
+      "title": "Deep echo path modeling for acoustic echo cancellation",
       "authors": "F Zhao, C Zhang, S He, J Liu, X Zhang",
-      "venue": "Interspeech , 2024",
+      "venue": "Proc. Interspeech 2024, 612-616 , 2024",
       "year": 2024,
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:5nxA0vEk-isC"
     },
     {
-      "title": "Unified Audio Visual Cues for Target Speaker Extraction.",
+      "title": "Unified audio visual cues for target speaker extraction",
       "authors": "T Wu, S He, J Pan, H Huang, Z Mo, X Zhang",
-      "venue": "INTERSPEECH , 2024",
+      "venue": "Proc. Interspeech 2024, 4343-4347 , 2024",
       "year": 2024,
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:0EnyYjriUFMC"
     },
@@ -150,7 +164,7 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:_FxGoFyzp5QC"
     },
     {
-      "title": "Hierarchical Modeling of Spatial Cues via Spherical Harmonics for Multi-Channel Speech Enhancement",
+      "title": "Hierarchical modeling of spatial cues via spherical harmonics for multi-channel speech enhancement",
       "authors": "J Pan, S He, H Zhang, X Zhang",
       "venue": "arXiv preprint arXiv:2309.10393 , 2023",
       "year": 2023,
@@ -234,9 +248,9 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:9yKSN-GCB0IC"
     },
     {
-      "title": "Speaker recognition-assisted robust audio deepfake detection.",
+      "title": "Speaker recognition-assisted robust audio deepfake detection",
       "authors": "J Pan, S Nie, H Zhang, S He, K Zhang, S Liang, X Zhang, J Tao",
-      "venue": "Interspeech, 4202-4206 , 2022",
+      "venue": "Proc. Interspeech 2022, 4202-4206 , 2022",
       "year": 2022,
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=IweWDgYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=IweWDgYAAAAJ:d1gkVwhDpl0C"
     },
