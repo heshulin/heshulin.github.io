@@ -77,8 +77,9 @@
     delete series.params.min;
     delete series.params.max;
     map.addMarkers(markers, [counts]);
+    series.setScale([2.4, 5.2]);
 
-    const date = widget.querySelector('.mapmyvisitors-date');
+    const date = widget.querySelector('[data-visitor-since]') || widget.querySelector('.mapmyvisitors-date');
     const since = new Date(data.since + 'T00:00:00Z');
     if (date && !Number.isNaN(since.getTime())) {
       date.textContent = 'Since ' + since.toLocaleDateString('en-US', {
@@ -86,8 +87,35 @@
       });
       date.style.display = '';
     }
+
+    const total = widget.querySelector('[data-visitor-total]');
+    const counter = widget.querySelector('.mapmyvisitors-visitors');
+    if (total) {
+      total.textContent = data.totalPageviews.toLocaleString('en-US');
+      const syncCounter = () => {
+        const match = counter && counter.textContent.match(/([\d,]+)/);
+        if (match) {
+          const current = Number(total.textContent.replace(/,/g, '')) || data.totalPageviews;
+          total.textContent = Math.max(current, Number(match[1].replace(/,/g, ''))).toLocaleString('en-US');
+        }
+      };
+      syncCounter();
+      if (counter) {
+        new MutationObserver(syncCounter).observe(counter, { childList: true, subtree: true, characterData: true });
+      }
+    }
+
+    // The provider fixes its SVG size at startup. Refit it when the card resizes
+    // so dots remain aligned with the map on phones and after rotation.
+    if (window.ResizeObserver) {
+      new ResizeObserver(() => {
+        map.updateSize();
+        window.dispatchEvent(new Event('resize'));
+      }).observe(widget);
+    }
+    map.updateSize();
+    window.dispatchEvent(new Event('resize'));
     widget.dataset.historyLoaded = 'true';
-    widget.title = 'All-time visitor locations; updated ' + data.updatedAt.slice(0, 10);
   }).catch(error => {
     // Keep the original working widget if the provider or history is unavailable.
     console.warn('All-time visitor map:', error);

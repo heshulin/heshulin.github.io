@@ -17,9 +17,29 @@
 </script>
 
 <!-- MapMyVisitors counter with all-time visitor locations -->
-<div class="clustrmaps-widget" data-visitor-history="{{ '/assets/maps/visitor-history.json' | relative_url }}" style="margin-top:2rem;text-align:center;">
-  <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=-LFjYklyqTMVjAA6WR4rDRcqLdocC-undesbTaRMZok&cl=ffffff&w=a&t=tt"></script>
+<section class="visitor-map clustrmaps-widget" data-visitor-history="{{ '/assets/maps/visitor-history.json' | relative_url }}" aria-labelledby="visitor-map-title">
+  <div class="visitor-map__header">
+    <div>
+      <p class="visitor-map__eyebrow">Visitor map</p>
+      <h2 id="visitor-map-title">Around the world</h2>
+    </div>
+    <div class="visitor-map__summary">
+      <span class="visitor-map__total" data-visitor-total aria-label="Total pageviews">&hellip;</span>
+      <span class="visitor-map__caption">total pageviews</span>
+    </div>
+  </div>
+  <div class="visitor-map__canvas">
+    <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?d=-LFjYklyqTMVjAA6WR4rDRcqLdocC-undesbTaRMZok&co=f8fafc&cl=dce5e9&ct=526774&w=a&t=tt"></script>
+  </div>
+  <div class="visitor-map__footer">
+    <span data-visitor-since>All-time visits</span>
+    <div class="visitor-map__legend" aria-label="Map legend">
+      <span><i class="visitor-map__dot" aria-hidden="true"></i>Visits</span>
+      <span><i class="visitor-map__dot visitor-map__dot--recent" aria-hidden="true"></i>Recent</span>
+    </div>
+    <a class="visitor-map__credit" href="https://mapmyvisitors.com/web/1c3bj" target="_blank" rel="noopener noreferrer">MapMyVisitors &nearr;</a>
+  </div>
   <script defer src="{{ '/assets/maps/visitor-history.js' | relative_url }}"></script>
-</div>
+</section>
 
 <!-- end custom footer snippets -->
